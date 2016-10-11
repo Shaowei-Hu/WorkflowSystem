@@ -1,0 +1,37 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd ">
+
+	<context:component-scan base-package="com.shaowei.workflow.controller" />
+	<mvc:annotation-driven />
+
+	<mvc:resources mapping="/scriptLibrary/**" location="/scriptLibrary/" />
+	<mvc:resources mapping="/styleSheet/**" location="/styleSheet/" />
+	<mvc:resources mapping="/images/**" location="/images/" />
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/pages/" />
+		<property name="suffix" value=".jsp" />
+
+	</bean>
+
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="com.shaowei.workflow.exception.CustomGenericException">errors/genericError</prop>
+<!-- 				<prop key="java.lang.Exception">exceptionError</prop> -->
+			</props>
+		</property>
+	</bean>
+
+	<!-- <bean name="login" class="com.shaowei.workflow.controller.Login"></bean> -->
+	<!-- <bean name="create" class="com.shaowei.workflow.controller.UserController"></bean> <bean name="document" class="com.shaowei.workflow.controller.Document"></bean> -->
+
+</beans>

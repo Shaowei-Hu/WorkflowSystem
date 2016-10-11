@@ -1,0 +1,1 @@
+insert into wkf_workflow (id, decision, next_step_id, conditionn, phase, step_id, step_name, autority, intervenorjob) values (21, "Send to trader", 1, "", "Analysis risk", 20, "Validat by risk control officer", "Site", "Trader"); 

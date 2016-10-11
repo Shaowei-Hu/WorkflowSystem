@@ -1,0 +1,125 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd ">
+ 
+	<!-- work with Spring Annotation -->
+	<context:annotation-config />
+
+	<!-- set the location where Spring can find the entities Annotation -->
+	<context:component-scan
+		base-package="com.shaowei.workflow.dao, com.shaowei.workflow.service, com.shaowei.workflow.model, com.shaowei.workflow.controller" />
+		
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/project" />
+		<property name="username" value="root" />
+		<property name="password" value="admin" />
+
+		<!-- the initial number of the connections -->
+		<property name="initialSize" value="1" />
+
+		<!-- until minIdle some new connections will be demanded -->
+		<property name="minIdle" value="1" />
+
+		<!-- the max value of the connections -->
+		<property name="maxActive" value="100" />
+
+		<!-- after a pick some connections in the pool can be released, until the 
+			maxIdle -->
+		<property name="maxIdle" value="20" />
+
+		<property name="maxWait" value="1000" />
+	</bean>
+
+
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- <property name="annotatedClasses"> <list> <value>User</value> <value>BaseDao</value> 
+			<value>UserDao</value> </list> </property> -->
+
+		<property name="packagesToScan">
+			<value>com.shaowei.workflow.model</value>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">validate</prop> -->
+				<prop key="hibernate.current_session_context_class">thread</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<!-- <prop key="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegion</prop> -->
+			</props>
+		</property>
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+<!-- 		<property name="configLocation" value="classpath:mybatis-config.xml"/> -->
+	</bean>
+
+	<bean id="documentMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.shaowei.workflow.dao.DocumentMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.shaowei.workflow.dao.UserMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="workflowMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.shaowei.workflow.dao.WorkflowMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<tx:advice id="transaction" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- 告诉spring容器什么样的目标方法采用什么样的事务策略 
+			name 用来说明目标方法 save* 以save开头的目标方法 
+			isolation 隔离属性 
+			propagation 传播属性 是解决事务嵌套问题的 
+			read-only 为true:只读事务 只能读 为false:读写事务 -->
+			<tx:method name="transferDocument" isolation="DEFAULT" propagation="NESTED" read-only="false" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* com.shaowei.workflow.service.AdminService.*(..))" id="adminLogin"/>
+		<aop:pointcut expression="execution(* com.shaowei.workflow.service.DocumentService.transferDocument(..))" id="documentTransaction"/>
+		<aop:advisor advice-ref="transaction" pointcut-ref="documentTransaction"/>
+		<aop:aspect ref="log">
+			<aop:before method="logBefore" pointcut-ref="adminLogin"/>
+			<aop:around method="logAroundLogin" pointcut-ref="adminLogin"/>
+		</aop:aspect>
+		
+	</aop:config>
+
+
+
+
+
+</beans>

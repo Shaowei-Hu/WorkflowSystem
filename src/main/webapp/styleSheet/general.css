@@ -1,0 +1,51 @@
+body{
+	padding-top: 20px;
+}
+
+#tab1, #tab2, #tab3, #tab4, #tab5, #tab0{
+	display: inline-block;
+	height: 20px;
+	width: 160px;
+	border: 1px pink solid;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+hr{
+	margin-left: 5px;
+	align: left;
+}
+#tab1:hover, #tab2:hover, #tab3:hover, #tab4:hover, #tab5:hover, #tab0:hover{
+	background-color: #AFE2D6;
+	cursor: pointer;
+}
+
+form{
+	margin: 60px auto;
+}
+
+.inputField{
+	margin-top: 10px;
+	margin-bottom: 10px;
+} 
+#headdiv{
+	height: 60px;
+}
+
+.formfield * {
+    vertical-align: middle;
+}
+.creatnewelement{
+	text-align: left;
+	width: 800px;
+	margin: 0px auto;
+}
+.hideUrl{
+	display: none;
+}
+.rowClickable:hover{
+	cursor: pointer;
+}
+
+#commentHide{
+	display: none;
+}
