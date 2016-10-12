@@ -29,7 +29,7 @@ public class StepDecision implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="STEP_ID")
-	private StepAdvanced step;
+	private StepAdvanced stepAdvanced;
 	
 	@Column(name="DECISION_ID", length=8)
 	private String decisionId;
@@ -74,10 +74,10 @@ public class StepDecision implements Serializable{
 		this.nextStep = nextStep;
 	}
 	public StepAdvanced getStep() {
-		return step;
+		return stepAdvanced;
 	}
 	public void setStep(StepAdvanced step) {
-		this.step = step;
+		this.stepAdvanced = step;
 	}
 	public String getDecisionId() {
 		return decisionId;

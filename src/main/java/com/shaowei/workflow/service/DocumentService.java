@@ -91,7 +91,8 @@ public class DocumentService implements DocumentServiceInterface{
 	
 	public List<Step> getStepsByDocument(Document document){
 		String stepId = document.getCurrentStep().split("-")[0];		
-		return workflowService.getStepsByStepId(stepId);
+//		return workflowService.getStepsByStepId(stepId);
+		return null;
 	}
 	
 	public boolean transferDocument(Decision decision){
@@ -100,7 +101,8 @@ public class DocumentService implements DocumentServiceInterface{
 			Date transferDate = new Date();
 			int documentId = decision.getDocumentId();
 			int nextResponsibleId = decision.getDestinationId();
-			Step step = workflowService.getFullStepById(decision.getDecisionId());
+//			Step step = workflowService.getFullStepById(decision.getDecisionId());
+			Step step = null;
 			Step nextStep = step.getNextStep();
 
 			Document document = getFullDocument(documentId);

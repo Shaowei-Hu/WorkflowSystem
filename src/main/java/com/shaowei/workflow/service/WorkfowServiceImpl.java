@@ -10,7 +10,7 @@ import com.shaowei.workflow.dao.StepAdvancedRepository;
 import com.shaowei.workflow.model.StepAdvanced;
 
 @Service
-public class WorkfowServiceImpl implements WorkflowService{
+public class WorkfowServiceImpl implements WorkflowService2{
 
 	@Resource
 	private StepAdvancedRepository stepAdvancedRepository;

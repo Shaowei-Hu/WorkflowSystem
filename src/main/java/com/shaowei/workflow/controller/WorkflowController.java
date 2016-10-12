@@ -14,18 +14,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.shaowei.workflow.model.KeyValue;
 import com.shaowei.workflow.model.StepAdvanced;
 import com.shaowei.workflow.model.StepSimple;
-import com.shaowei.workflow.service.WorkflowService;
+import com.shaowei.workflow.service.WorkflowService2;
 
 @Controller
 @RequestMapping(value="/workflow")
 public class WorkflowController {
 	
 	@Resource
-	WorkflowService workflowService;
+	WorkflowService2 workflowService;
 	
 	@RequestMapping(value="/getDecisionByStepId/{stepId}", method = RequestMethod.GET)
 	public @ResponseBody List<KeyValue> getDecisionByStepId(@PathVariable String stepId){		
-		return workflowService.getDecisionByStepId(stepId);
+//		return workflowService.getDecisionByStepId(stepId);
+		return null;
 	}
 	
 	@RequestMapping(value="/getWorkflow/{version}")
@@ -45,7 +46,8 @@ public class WorkflowController {
 	
 	@RequestMapping(value="/showStep/{stepId}", method = RequestMethod.GET)
 	public String showStep(@PathVariable String stepId, Model model){
-		List<StepSimple> steps = workflowService.getStepSimpleByStepId(stepId);
+//		List<StepSimple> steps = workflowService.getStepSimpleByStepId(stepId);
+		List<StepSimple> steps = null;
 		model.addAttribute("steps", steps);
 		return "workflowViews/updateWorkflowStep";
 	}
@@ -53,7 +55,7 @@ public class WorkflowController {
 	@RequestMapping(value="/updateWorkflow", method = RequestMethod.POST)
 	public String updateWorkfow(StepSimple stepSimple, String[] system, String[] decision, String[] condition, String[] nextStep){
 
-		workflowService.updateWorkflow(stepSimple, system, decision, condition, nextStep);
+//		workflowService.updateWorkflow(stepSimple, system, decision, condition, nextStep);
 		return "workflowViews/updateWorkflow";
 	}
 	

@@ -40,6 +40,7 @@ public class StepAdvanced implements Serializable{
 	@Column(name="AUTORITY", length=16)
 	private String autority;
 	
+	//mappedBy an attribute in the other class
 	@OneToMany(mappedBy="stepAdvanced")
 	private List<StepDecision> decisions;
 	
