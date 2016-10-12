@@ -74,14 +74,13 @@
 
 </body>
 
-	<script src="/Workflow/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
 	<script>
 		
 
 		var stepIdFlag = "";
 		
-        $.ajax({url: "/Workflow/workflow/getWorkflow", success: function(steps){
+        $.ajax({url: "${pageContext.request.contextPath }/workflow/getWorkflow", success: function(steps){
 			$.each(steps, function(i, items) {
 				//		alert(steps[i].stepId);
 				if (stepIdFlag != steps[i].step_id) {
@@ -115,7 +114,7 @@
 		
         }});
 
-		$("tr[class*=step]").css("background-color", "rgb(116, 116, 116)");
+		$("tr[class*=step]").css("background-color", "rgb(116, 116, 16)");
 		
 		$("#plus").click(function(){
 			$("tr[class*=decision]").show();

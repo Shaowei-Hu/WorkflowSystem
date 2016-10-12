@@ -10,13 +10,13 @@
 			<div class="sidebar-nav navbar-collapse">
 				<ul class="nav" id="side-menu">
 
-					<li><a href="/Workflow/user/welcome"><i class="fa fa-home fa-fw"></i> Welcome</a></li>
+					<li><a href="${pageContext.request.contextPath }/user/welcome"><i class="fa fa-home fa-fw"></i> Welcome</a></li>
 					<li><a href="#"><i class="fa fa-archive fa-fw"></i> Documents<span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
 
-							<li><a href="/Workflow/document/myList"><i class="fa fa-bars fa-fw"></i> List</a></li>
+							<li><a href="${pageContext.request.contextPath }/document/myList"><i class="fa fa-bars fa-fw"></i> List</a></li>
 
-							<li><a href="/Workflow/document/create"><i class="fa fa-plus fa-fw"></i> Create</a></li>
+							<li><a href="${pageContext.request.contextPath }/document/create"><i class="fa fa-plus fa-fw"></i> Create</a></li>
 
 							<li><a href="operate"><i class="fa fa-cog fa-fw"></i> Operate</a></li>
 

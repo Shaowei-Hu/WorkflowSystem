@@ -264,7 +264,7 @@
 	<!-- Modal -->
 	<div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
-			<st:form method="post" modelAttribute="decision" action="/Workflow/document/transfer">
+			<st:form method="post" modelAttribute="decision" action="${pageContext.request.contextPath }/document/transfer">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -340,7 +340,7 @@
 	    	
 	    	var step = $("#currentStep").text();
 	    	var id = step.split("-")[0];
-	        $.ajax({url: "/Workflow/workflow/getDecisionByStepId/"+id, success: function(result){
+	        $.ajax({url: "${pageContext.request.contextPath }/workflow/getDecisionByStepId/"+id, success: function(result){
 	        	$.each( result, function( index, value ){
 		        	$("#decisionSelect").append($('<option>', {
 		        	    value: value.keyy,
@@ -353,7 +353,7 @@
 	    
 	    $("#decisionSelect").on("change", function() {
 	    	  $("#destinationSelect").empty().append('<option selected="selected" value="0">--Choose destination--</option>');
-		        $.ajax({url: "/Workflow/user/getDestinationByStepID/"+this.value, success: function(result){
+		        $.ajax({url: "${pageContext.request.contextPath }/user/getDestinationByStepID/"+this.value, success: function(result){
 		        	$.each( result, function( index, value ){
 			        	$("#destinationSelect").append($('<option>', {
 			        	    value: value.keyy,
@@ -375,7 +375,7 @@
 		var documentId = $("#documentId").text();
 		$("#documentInfo").hide();
 		if(!historyFlag){
-	        $.ajax({url: "/Workflow/document/history/"+documentId, success: function(result){
+	        $.ajax({url: "${pageContext.request.contextPath }/document/history/"+documentId, success: function(result){
 	        	$.each( result, function( index, value ){
 	        		var timee = new Date(value.date);
 		        	$("#historyBody").append(

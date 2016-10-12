@@ -32,7 +32,7 @@
 
 
 		<div id="page-wrapper">
-			<form role="form" action="/Workflow/workflow/updateWorkflow" method="post">
+			<form role="form" action="${pageContext.request.contextPath }/workflow/updateWorkflow" method="post">
 				<div class="row">
 					<div class="col-lg-12">
 						<h1 class="page-header">Workflow Step</h1>
@@ -230,7 +230,7 @@
 	</div>
 	<!-- /#wrapper -->
 
-	<script src="/Workflow/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath }/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
 	<script>
 	var ajaxFlag = true;
@@ -243,7 +243,7 @@
 					
 							if(ajaxFlag){
 								
-						        $.ajax({url: "/Workflow/workflow/getWorkflow", success: function(steps){
+						        $.ajax({url: "${pageContext.request.contextPath }/workflow/getWorkflow", success: function(steps){
 						        	ajaxFlag = false;
 									$.each(steps, function(i, items) {
 

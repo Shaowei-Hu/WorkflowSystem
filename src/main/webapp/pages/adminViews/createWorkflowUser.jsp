@@ -188,8 +188,8 @@
 
 
 
-	<script src="/Workflow/scriptLibrary/autocomplete/jquery.autocomplete.js"></script>
-	<script src="/Workflow/scriptLibrary/autocomplete/countries.js"></script>
+	<script src="${pageContext.request.contextPath }/scriptLibrary/autocomplete/jquery.autocomplete.js"></script>
+	<script src="${pageContext.request.contextPath }/scriptLibrary/autocomplete/countries.js"></script>
 	
 
 
@@ -198,7 +198,7 @@
 		$(document).ready(function() {
 			
 			var users = null;
-	        $.ajax({url: "/Workflow/user/getUsersKeyValue", async: false, success: function(result){
+	        $.ajax({url: "${pageContext.request.contextPath }/user/getUsersKeyValue", async: false, success: function(result){
 				users = result;
 				
 	        }});

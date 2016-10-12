@@ -103,8 +103,8 @@
 	<!-- /#wrapper -->
 
 	<!-- DataTables JavaScript -->
-	<script src="/Workflow/scriptLibrary/datatables/media/js/jquery.dataTables.min.js"></script>
-	<script src="/Workflow/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+<!-- 	<script src="/Workflow/scriptLibrary/datatables/media/js/jquery.dataTables.min.js"></script>
+	<script src="/Workflow/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script> -->
 
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 	<script>
