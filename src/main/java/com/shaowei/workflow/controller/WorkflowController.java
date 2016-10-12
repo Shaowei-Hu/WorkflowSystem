@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shaowei.workflow.model.KeyValue;
+import com.shaowei.workflow.model.StepAdvanced;
 import com.shaowei.workflow.model.StepSimple;
 import com.shaowei.workflow.service.WorkflowService;
 
@@ -27,9 +28,9 @@ public class WorkflowController {
 		return workflowService.getDecisionByStepId(stepId);
 	}
 	
-	@RequestMapping(value="/getWorkflow")
-	public @ResponseBody List<StepSimple> getWorkflow(){
-		return workflowService.getWorkflow();
+	@RequestMapping(value="/getWorkflow/{version}")
+	public @ResponseBody List<StepAdvanced> getWorkflow(String version){
+		return workflowService.getWorkflowByVersion(version);
 	}
 	
 	@RequestMapping(value="/getWorkflowTable")
