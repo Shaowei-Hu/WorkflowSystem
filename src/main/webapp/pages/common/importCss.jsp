@@ -18,3 +18,5 @@
 <link href="${pageContext.request.contextPath }/styleSheet/sb-admin-2.css" rel="stylesheet">
 
 <link href="${pageContext.request.contextPath }/styleSheet/general.css" rel="stylesheet" type="text/css">
+
+<link href="${pageContext.request.contextPath }/styleSheet/styles.css" rel="stylesheet" type="text/css">
