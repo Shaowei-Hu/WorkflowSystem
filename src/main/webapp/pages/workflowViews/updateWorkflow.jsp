@@ -70,12 +70,12 @@
 
 </body>
 
-	<script src="/Workflow/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+<!-- 	<script src="/Workflow/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script> -->
 
 	<script>
 	var stepIdFlag = "";
 	
-    $.ajax({url: "/Workflow/workflow/getWorkflow", success: function(steps){
+    $.ajax({url: "${pageContext.request.contextPath }/workflow/getWorkflow", success: function(steps){
 		$.each(steps, function(i, items) {
 			//		alert(steps[i].stepId);
 			if (stepIdFlag != steps[i].step_id) {
@@ -99,11 +99,11 @@
     
     function showStep(id){
     	
-    	window.location.href = "/Workflow/workflow/showStep/" + id;
+    	window.location.href = "${pageContext.request.contextPath }/workflow/showStep/" + id;
     }
     
     $("#plus").click(function(){
-    	window.location.href = "/Workflow/workflow/addWorkflowStep/";
+    	window.location.href = "${pageContext.request.contextPath }/workflow/addWorkflowStep/";
     });
 
 		
