@@ -3,8 +3,10 @@ package com.shaowei.workflow.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +43,7 @@ public class StepAdvanced implements Serializable{
 	private String autority;
 	
 	//mappedBy an attribute in the other class
-	@OneToMany(mappedBy="stepAdvanced")
+	@OneToMany(mappedBy="stepAdvanced", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private List<StepDecision> decisions;
 	
 	
@@ -88,6 +90,12 @@ public class StepAdvanced implements Serializable{
 	}
 	public void setDecisions(List<StepDecision> decisions) {
 		this.decisions = decisions;
+	}
+	public String getVersion() {
+		return version;
+	}
+	public void setVersion(String version) {
+		this.version = version;
 	}
 	
 	

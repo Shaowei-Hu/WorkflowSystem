@@ -25,6 +25,12 @@
 					<!-- /.col-lg-12 -->
 				</div>
 				<!-- /.row -->
+						<div class="form-group">
+									<label for="select">Workflow Version:</label>
+									<select id="" class="form-control mySelect" name="nextStep">
+												<option value="--">--</option>
+									</select>
+						</div>
 		<button id="plus" type="button" class="btn btn-default">
 			<span class="glyphicon glyphicon-plus"></span>
 		</button>

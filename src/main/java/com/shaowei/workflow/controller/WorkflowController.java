@@ -30,9 +30,9 @@ public class WorkflowController {
 	}
 	
 	@RequestMapping(value="/getWorkflow/{version}")
-	public @ResponseBody List<StepAdvanced> getWorkflow(String version){
-//		return workflowService.getWorkflowByVersion(version);
-		return null;
+	public @ResponseBody List<StepAdvanced> getWorkflow(@PathVariable String version){
+		return workflowService.getWorkflowByVersion(version);
+//		return null;
 	}
 	
 	@RequestMapping(value="/getWorkflowTable")
@@ -61,7 +61,27 @@ public class WorkflowController {
 	}
 	
 	@RequestMapping(value="/addWorkflowStep", method = RequestMethod.GET)
-	public String addWorkfowStep(StepSimple stepSimple, String[] system, String[] decision, String[] condition, String[] nextStep){
+	public String addWorkfowStep(){
+		return "workflowViews/addWorkflowStep";
+	}
+	
+	@RequestMapping(value="/createWorkflowPage", method = RequestMethod.GET)
+	public String createWorkflowPage(){
+		return "workflowViews/createWorkflowPage";
+	}
+	
+	@RequestMapping(value="/newWorkflow", method = RequestMethod.POST)
+	public String createNewWorkflow(String workflowVersion, Model model){
+		model.addAttribute("workflowVersion", workflowVersion);
+		workflowService.createNewWorkflow(workflowVersion);
+		return "workflowViews/addWorkflowStep";
+	}
+	
+	
+	@RequestMapping(value="/workflowStep", method = RequestMethod.POST)
+	public String createWorkflowStep(String workflowVersion, StepSimple stepSimple, String[] decision, String[] decisionId, String[] condition, String[] nextStep, Model model){
+		workflowService.addWorkflowStep(workflowVersion, stepSimple, decision, decisionId, condition, nextStep);
+		model.addAttribute("workflowVersion", workflowVersion);
 		return "workflowViews/addWorkflowStep";
 	}
 

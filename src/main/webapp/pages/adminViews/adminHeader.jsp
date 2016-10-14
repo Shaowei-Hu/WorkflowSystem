@@ -23,6 +23,7 @@
 						<ul class="nav nav-second-level">
 							<li><a href="${pageContext.request.contextPath }/workflow/getWorkflowTable"><i class="glyphicon glyphicon-random"></i> Workflow</a></li>
 							<li><a href="${pageContext.request.contextPath }/workflow/updateWorkflow"><i class="glyphicon glyphicon-list-alt"></i> Steps</a></li>
+							<li><a href="${pageContext.request.contextPath }/workflow/createWorkflowPage"><i class="fa fa-plus fa-fw"></i> Create Workflow</a></li>
 						</ul>
 					</li>
 

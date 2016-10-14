@@ -33,10 +33,10 @@
 
 
 		<div id="page-wrapper">
-			<form action="${pageContext.request.contextPath }/workflow/workflowStep" method="post">
+			<form role="form" action="${pageContext.request.contextPath }/workflow/updateWorkflow" method="post">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Create Workflow Step <small>(<c:out value="${workflowVersion}"/>)</small></h1>
+						<h1 class="page-header">Add Workflow Step <small><c:out value="${workflowVersion}"/></small></h1>
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
@@ -50,20 +50,15 @@
 								<div class="row">
 
 									<fieldset>
-										<div class="col-lg-6">									
-											<div class="form-group">
-												<label>Version</label> <input class="form-control" value="<c:out value="${workflowVersion}"/>" disabled>
-												<input type="hidden" name="workflowVersion" value="<c:out value="${workflowVersion}"/>">
-												<p class="help-block">Workflow version</p>
-											</div>
+										<div class="col-lg-6">
 											<div class="form-group">
 												<label>Step Id</label> <input class="form-control" name="step_id">
-												<p class="help-block">Step Id</p>
+												<p class="help-block">User's name .</p>
 											</div>
 
 											<div class="form-group">
 												<label>Phase</label> <input class="form-control" name="phase">
-												<p class="help-block">Phase</p>
+												<p class="help-block">User's name .</p>
 											</div>
 										</div>
 										<!-- /.col-lg-6 (nested) -->
@@ -71,16 +66,12 @@
 
 										<div class="col-lg-6">
 											<div class="form-group">
-												<label>ID</label> <input class="form-control" name="" value="<c:out value=""/>" disabled>
-												<p class="help-block">System ID</p>
-											</div>										
-											<div class="form-group">
 												<label>Step Name</label> <input class="form-control" name="step_name">
-												<p class="help-block">Step's name </p>
+												<p class="help-block">User's name .</p>
 											</div>
 											<div class="form-group">
 												<label>Service</label> <input class="form-control" name="service">
-												<p class="help-block">Intervenor service</p>
+												<p class="help-block">Intervoner service .</p>
 											</div>
 										</div>
 										<!-- /.col-lg-6 (nested) -->
@@ -113,8 +104,8 @@
 												<div class="col-lg-6">
 
 													<div class="form-group">
-														<label>Decision Id</label> <input class="form-control" name="decisionId">
-														<p class="help-block">Decision Id</p>
+														<label>Decision</label> <input class="form-control" name="decision" ">
+														<p class="help-block">Decision</p>
 													</div>
 
 													<div class="form-group">
@@ -128,11 +119,6 @@
 												</div>
 												<!-- /.col-lg-6 (nested) -->
 												<div class="col-lg-6">
-												
-													<div class="form-group">
-														<label>Decision</label> <input class="form-control" name="decision">
-														<p class="help-block">Decision</p>
-													</div>
 
 
 													<div class="form-group">
@@ -143,7 +129,9 @@
 														<p class="help-block">The next step which the decision will point to</p>
 													</div>
 													 
-
+													<div class="form-group">
+														<input type="hidden" class="form-control" name="system">		
+													</div>
 
 												</div>
 												<!-- /.col-lg-6 (nested) -->
@@ -173,8 +161,8 @@
 												<div class="col-lg-6">
 
 													<div class="form-group">
-														<label>Decision Id</label> <input class="form-control" name="decisionId">
-														<p class="help-block">Decision Id</p>
+														<label>Decision</label> <input class="form-control" name="decision">
+														<p class="help-block">Decision</p>
 													</div>
 
 													<div class="form-group">
@@ -188,22 +176,19 @@
 												</div>
 												<!-- /.col-lg-6 (nested) -->
 												<div class="col-lg-6">
-												
-													<div class="form-group">
-														<label>Decision</label> <input class="form-control" name="decision">
-														<p class="help-block">Decision</p>
-													</div>
 
 
 													<div class="form-group">
-														<label for="select">Next Step Id</label>
+														<label for="select">Next Step</label>
 														<select id="" class="form-control mySelect" name="nextStep">
-															<option value="--">--</option>
+															<option>--Choose next step--</option>
 														</select>
 														<p class="help-block">The next step which the decision will point to</p>
 													</div>
-													 
-
+													
+													<div class="form-group">
+														<input type="hidden" class="form-control" name="system">
+													</div>
 
 												</div>
 												<!-- /.col-lg-6 (nested) -->
@@ -259,11 +244,11 @@
 					
 							if(ajaxFlag){
 								
-						        $.ajax({url: "${pageContext.request.contextPath }/workflow/getWorkflow/<c:out value="${workflowVersion}"/>", success: function(steps){
+						        $.ajax({url: "${pageContext.request.contextPath }/workflow/getWorkflow", success: function(steps){
 						        	ajaxFlag = false;
 									$.each(steps, function(i, items) {
 
-										$(".mySelect").append("<option value='" + steps[i].id + "'>" + steps[i].stepId +" - "+ steps[i].stepName + "</option>");
+										$(".mySelect").append("<option value='" + steps[i].step_id + "'>" + steps[i].step_id +" - "+ steps[i].step_name + "</option>");
 									
 									});
 									

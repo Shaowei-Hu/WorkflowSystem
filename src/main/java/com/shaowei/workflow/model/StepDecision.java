@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -42,7 +41,7 @@ public class StepDecision implements Serializable{
 	
 	
 	
-	@OneToOne(fetch=FetchType.LAZY, optional=false)
+	@ManyToOne(fetch=FetchType.LAZY, optional=false)
 	@JoinColumn(name="NEXT_STEP_ID")
 	private StepAdvanced nextStep;
 	
