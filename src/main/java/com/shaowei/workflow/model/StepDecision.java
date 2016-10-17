@@ -65,6 +65,7 @@ public class StepDecision implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	@JsonIgnore
 	public StepAdvanced getNextStep() {
 		return nextStep;
@@ -72,10 +73,11 @@ public class StepDecision implements Serializable{
 	public void setNextStep(StepAdvanced nextStep) {
 		this.nextStep = nextStep;
 	}
-	public StepAdvanced getStep() {
+	@JsonIgnore
+	public StepAdvanced getStepAdvanced() {
 		return stepAdvanced;
 	}
-	public void setStep(StepAdvanced step) {
+	public void setStepAdvanced(StepAdvanced step) {
 		this.stepAdvanced = step;
 	}
 	public String getDecisionId() {

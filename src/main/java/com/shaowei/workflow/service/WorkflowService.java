@@ -16,6 +16,7 @@ public interface WorkflowService {
 	
 	public boolean createNewWorkflow(String version);
 	public boolean addWorkflowStep(String workflowVersion, StepSimple stepSimple, String[] decision, String[] decisionId, String[] condition, String[] nextStep);
+	public List<String> getWorkflowVersions();
 
 	
 }

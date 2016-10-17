@@ -91,8 +91,8 @@ public class WorkfowServiceImpl implements WorkflowService{
 				stepDecision.setNextStep(this.getStepAdvancedById(Integer.parseInt(nextStepId[i])));
 			else
 				stepDecision.setNextStep(step); //Hiberate does not allow next step to be null, so I set the next step to the step himself if user doesn't set one.
-			System.out.println(nextStepId[i]);
-			stepDecision.setStep(step);// may cause stack overflow error
+
+			stepDecision.setStepAdvanced(step);// may cause stack overflow error
 			decisions.add(stepDecision);
 		}
 		
@@ -106,6 +106,11 @@ public class WorkfowServiceImpl implements WorkflowService{
 		}
 		
 		return true;
+	}
+
+	@Override
+	public List<String> getWorkflowVersions() {
+		return stepAdvancedRepository.getWorkflowVersions();
 	}
 
 }

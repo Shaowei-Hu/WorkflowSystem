@@ -85,6 +85,7 @@ public class StepAdvanced implements Serializable{
 	public void setAutority(String autority) {
 		this.autority = autority;
 	}
+	
 	public List<StepDecision> getDecisions() {
 		return decisions;
 	}

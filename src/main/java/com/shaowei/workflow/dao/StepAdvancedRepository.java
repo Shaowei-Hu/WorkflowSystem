@@ -3,6 +3,7 @@ package com.shaowei.workflow.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -27,6 +28,19 @@ public class StepAdvancedRepository extends BaseDao<StepAdvanced>{
 
 		session.getTransaction().commit();
 		return stepAdvanceds;
+	}
+	
+	public List<String> getWorkflowVersions(){
+		String sql = "SELECT DISTINCT VERSION FROM WKF_WORKFLOW_STEP";
+		Session session = super.getHibernateTemplate().getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		SQLQuery query = session.createSQLQuery(sql);
+//		query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+		
+		@SuppressWarnings("unchecked")
+		List<String> results = query.list();
+		session.getTransaction().commit();
+		return results;
 	}
 	
 }

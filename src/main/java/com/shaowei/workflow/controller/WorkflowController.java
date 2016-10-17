@@ -29,7 +29,7 @@ public class WorkflowController {
 		return null;
 	}
 	
-	@RequestMapping(value="/getWorkflow/{version}")
+	@RequestMapping(value="/workflow/{version}")
 	public @ResponseBody List<StepAdvanced> getWorkflow(@PathVariable String version){
 		return workflowService.getWorkflowByVersion(version);
 //		return null;
@@ -83,6 +83,11 @@ public class WorkflowController {
 		workflowService.addWorkflowStep(workflowVersion, stepSimple, decision, decisionId, condition, nextStep);
 		model.addAttribute("workflowVersion", workflowVersion);
 		return "workflowViews/addWorkflowStep";
+	}
+	
+	@RequestMapping(value="/workflowVersion", method = RequestMethod.GET)
+	public @ResponseBody List<String> getWorkflowVersions(){
+		return workflowService.getWorkflowVersions();
 	}
 
 }
