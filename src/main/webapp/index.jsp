@@ -56,9 +56,9 @@
 <!-- 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 		<script src="/js/bootstrap.min.js"></script> -->
 			<!-- jQuery -->
- 	<script src="/Workflow/scriptLibrary/jquery/jquery-1.11.1.js"></script>
+ 	<script src="${pageContext.request.contextPath }/scriptLibrary/jquery/jquery-1.11.1.js"></script>
  
 	<!-- Bootstrap Core JavaScript -->
-	<script src="/Workflow/scriptLibrary/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath }/scriptLibrary/bootstrap/js/bootstrap.min.js"></script>
 	</body>
 </html>

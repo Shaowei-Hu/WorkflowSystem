@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -34,10 +35,11 @@ public class DocumentDao extends BaseDao<Document>{
 		List<Document> documents = criteria.list();
 		Document document = null;
 		if(documents!=null && documents.size()>0){
-			document = documents.get(0);
-			document.getComments().size();
-			document.getHistory().size();
-			document.getIntervenors().size();
+			Hibernate.initialize(documents);
+//			document = documents.get(0);
+//			document.getComments().size();
+//			document.getHistory().size();
+//			document.getIntervenors().size();
 		}
 		session.getTransaction().commit();
 		return document;

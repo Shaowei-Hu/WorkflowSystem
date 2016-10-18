@@ -259,7 +259,7 @@
 					
 							if(ajaxFlag){
 								
-						        $.ajax({url: "${pageContext.request.contextPath }/workflow/getWorkflow/<c:out value="${workflowVersion}"/>", success: function(steps){
+						        $.ajax({url: "${pageContext.request.contextPath }/workflow/workflow/<c:out value="${workflowVersion}"/>", success: function(steps){
 						        	ajaxFlag = false;
 									$.each(steps, function(i, items) {
 

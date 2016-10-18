@@ -60,8 +60,9 @@ public class WorkflowController {
 		return "workflowViews/updateWorkflow";
 	}
 	
-	@RequestMapping(value="/addWorkflowStep", method = RequestMethod.GET)
-	public String addWorkfowStep(){
+	@RequestMapping(value="/addWorkflowStep/{version}", method = RequestMethod.GET)
+	public String addWorkfowStep(@PathVariable String version, Model model){
+		model.addAttribute("workflowVersion", version);
 		return "workflowViews/addWorkflowStep";
 	}
 	
@@ -88,6 +89,12 @@ public class WorkflowController {
 	@RequestMapping(value="/workflowVersion", method = RequestMethod.GET)
 	public @ResponseBody List<String> getWorkflowVersions(){
 		return workflowService.getWorkflowVersions();
+	}
+	
+	@RequestMapping(value="/workflowStep/{id}", method = RequestMethod.DELETE)
+	public String deleteWorkflowStep(@PathVariable String id){
+		workflowService.deleteStep(id);
+		return "workflowViews/updateWorkflow";
 	}
 
 }

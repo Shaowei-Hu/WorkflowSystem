@@ -80,20 +80,27 @@ public class WorkfowServiceImpl implements WorkflowService{
 		step.setStepName(stepSimple.getStep_name());
 		step.setPhase(stepSimple.getPhase());
 		step.setService(stepSimple.getService());
-		System.out.println(decisions.size());
-		
-		for(int i=0; i<decision.length-1; i++){//One decision technical is added in the step creation jsp for add new decisions, and we don't persist this one so length-1
-			StepDecision stepDecision = new StepDecision();
-			stepDecision.setCondition(condition[i]);
-			stepDecision.setDecision(decision[i]);
-			stepDecision.setDecisionId(decisionId[i]);
-			if(!nextStepId[i].contains("-"))
-				stepDecision.setNextStep(this.getStepAdvancedById(Integer.parseInt(nextStepId[i])));
-			else
-				stepDecision.setNextStep(step); //Hiberate does not allow next step to be null, so I set the next step to the step himself if user doesn't set one.
 
-			stepDecision.setStepAdvanced(step);// may cause stack overflow error
-			decisions.add(stepDecision);
+		
+		for(int i=0; i<decision.length; i++){//One decision technical is added in the step creation jsp for add new decisions, and we don't persist this one so length-1
+			if(!"".equals(decision[i])){
+				StepDecision stepDecision = new StepDecision();
+				stepDecision.setCondition(condition[i]);
+				stepDecision.setDecision(decision[i]);
+				stepDecision.setDecisionId(decisionId[i]);
+				if(!nextStepId[i].contains("-")){
+					StepAdvanced nextStep = this.getStepAdvancedById(Integer.parseInt(nextStepId[i]));
+					stepDecision.setNextStepId(nextStep.getId());
+					stepDecision.setNextStepNameId(nextStep.getStepId());
+				}
+					
+//				else
+//					stepDecision.setNextStep(step); //Hiberate does not allow next step to be null, so I set the next step to the step himself if user doesn't set one.
+
+				stepDecision.setStepAdvanced(step);// may cause stack overflow error (it is not this cause stack over flow error, it is json transformer who may cause the problem)
+				decisions.add(stepDecision);
+			}
+			
 		}
 		
 		step.setDecisions(decisions);
@@ -111,6 +118,13 @@ public class WorkfowServiceImpl implements WorkflowService{
 	@Override
 	public List<String> getWorkflowVersions() {
 		return stepAdvancedRepository.getWorkflowVersions();
+	}
+
+	@Override
+	public boolean deleteStep(String idString) {
+		int id = Integer.parseInt(idString);
+		stepAdvancedRepository.delete(id);
+		return true;
 	}
 
 }

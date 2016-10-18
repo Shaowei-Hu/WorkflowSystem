@@ -24,7 +24,12 @@
 					<!-- /.col-lg-12 -->
 				</div>
 				<!-- /.row -->
-
+				<div class="form-group">
+								<label for="select">Workflow Version:</label>
+								<select id="versionSelect" class="form-control mySelect" name="nextStep">
+									<option value="--">--</option>
+								</select>
+				</div>
 		<button id="plus" type="button" class="btn btn-default">
 			<span class="glyphicon glyphicon-plus"></span>
 		</button>
@@ -37,11 +42,14 @@
 		<table class="table table-hover" id="dataTables-example">
 			<thead>
 				<tr>
-					<th>ID</th>
 					<th>Step Id</th>
 					<th>Step Name</th>
 					<th>Service</th>
 					<th>Phase</th>
+					<th>Authority</th>
+					<th>Decision</th>
+					<th>Next Step Id</th>
+					<th>Condition</th>
 					
 					<th>Modify</th>
 					<th>Delete</th>
@@ -52,11 +60,14 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<th>ID</th>
 					<th>Step Id</th>
 					<th>Step Name</th>
 					<th>Service</th>
 					<th>Phase</th>
+					<th>Authority</th>
+					<th>Decision</th>
+					<th>Next Step Id</th>
+					<th>Condition</th>
 					
 					<th>Modify</th>
 					<th>Delete</th>
@@ -70,10 +81,59 @@
 
 </body>
 
-<!-- 	<script src="/Workflow/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script> -->
 
 	<script>
+	
+    $.ajax({url: "${pageContext.request.contextPath }/workflow/workflowVersion", success: function(versions){
+		$.each(versions, function(i, items) {
+			$("#versionSelect").append("<option value='" + versions[i] + "'>" + versions[i] + "</option>");
+			
+		});
+	
+    }});
+	
+    
+    $("#versionSelect").change(selectChange);
+
 	var stepIdFlag = "";
+	
+	function selectChange(){
+		$("tbody").empty();
+		var version = $('#versionSelect').find(":selected").text();
+		if("--"!=version)
+			getWorkflowByVersion(version);
+	}
+	
+	function getWorkflowByVersion(version){
+        $.ajax({url: "${pageContext.request.contextPath }/workflow/workflow/"+version, success: function(stepAdvanceds){
+			$.each(stepAdvanceds, function(i, items) {
+				//		alert(steps[i].stepId);
+				
+					$("tbody").append(
+							"<tr class='step" + stepAdvanceds[i].stepId
+									+ " rowClickable'><td>"
+									+ stepAdvanceds[i].stepId + "</td><td>"
+									+ stepAdvanceds[i].stepName + "</td><td>"
+									+ stepAdvanceds[i].service+ "</td><td>"
+									+ stepAdvanceds[i].phase + "</td></td>"
+									+ stepAdvanceds[i].autority + "</td><td></td><td></td><td></td><td></td><td><a href='javascript:showStep("
+									+ stepAdvanceds[i].id + ")'><span class='glyphicon glyphicon-wrench'></span></a></td><td><a href='javascript:deleteStep("
+									+ stepAdvanceds[i].id + ")'><span class='glyphicon glyphicon-trash'></span></a></td></tr>");
+					var decisionsList = stepAdvanceds[i].decisions;
+					$.each(decisionsList, function(j, items){
+						$("tbody").append(
+								"<tr class='decision" + parseInt(stepAdvanceds[i].stepId)
+										+ "'><td></td><td></td><td></td><td></td><td></td><td>"
+										+ decisionsList[j].decision + "</td><td>"
+										+ decisionsList[j].nextStepNameId + "</td><td>"
+										+ decisionsList[j].condition + "</td><td></td><td></td><tr>");
+					});
+					
+			});
+		
+        }});
+	}
+/*	var stepIdFlag = "";
 	
     $.ajax({url: "${pageContext.request.contextPath }/workflow/getWorkflow", success: function(steps){
 		$.each(steps, function(i, items) {
@@ -96,15 +156,26 @@
 		});
 	
     }});
-    
+   */ 
     function showStep(id){
     	
     	window.location.href = "${pageContext.request.contextPath }/workflow/showStep/" + id;
     }
     
     $("#plus").click(function(){
-    	window.location.href = "${pageContext.request.contextPath }/workflow/addWorkflowStep/";
+    	var version = $('#versionSelect').find(":selected").text();
+    	window.location.href = "${pageContext.request.contextPath }/workflow/addWorkflowStep/"+version;
     });
+    
+    function deleteStep(id){
+    	$.ajax({
+    	    url: '${pageContext.request.contextPath }/workflow/workflowStep/'+id,
+    	    type: 'DELETE',
+    	    success: function(result) {
+    	        alert(id + " has been deleted.");
+    	    }
+    	});
+    }
 
 		
 	</script>

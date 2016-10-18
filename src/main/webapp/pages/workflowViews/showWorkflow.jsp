@@ -124,8 +124,8 @@
 							$("tbody").append(
 									"<tr class='decision" + parseInt(stepAdvanceds[i].stepId)
 											+ "'><td></td><td></td><td></td><td></td><td></td><td></td><td>"
-											+ decisionsList[j].decision + "</td><td><td></td>"
-									//		+ decisionsList[j].next_step_id + "</td><td>"
+											+ decisionsList[j].decision + "</td><td>"
+											+ decisionsList[j].nextStepNameId + "</td><td>"
 											+ decisionsList[j].condition + "</td><tr>");
 						});
 						
@@ -141,7 +141,7 @@
 		
 
 
-		$("tr[class*=step]").css("background-color", "rgb(116, 116, 16)");
+		$("tr[class*=decision]").css("background-color", "rgb(116, 116, 16)");
 		
 		$("#plus").click(function(){
 			$("tr[class*=decision]").show();

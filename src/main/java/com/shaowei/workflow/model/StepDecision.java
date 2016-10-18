@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,10 +39,11 @@ public class StepDecision implements Serializable{
 	private String condition;
 	
 	
+	@Column(name="NEXT_STEP_ID")
+	private int nextStepId;
 	
-	@ManyToOne(fetch=FetchType.LAZY, optional=false)
-	@JoinColumn(name="NEXT_STEP_ID")
-	private StepAdvanced nextStep;
+	@Column(name="NEXT_STEP_NAME_ID")
+	private String nextStepNameId;
 	
 	
 
@@ -67,13 +67,6 @@ public class StepDecision implements Serializable{
 	}
 	
 	@JsonIgnore
-	public StepAdvanced getNextStep() {
-		return nextStep;
-	}
-	public void setNextStep(StepAdvanced nextStep) {
-		this.nextStep = nextStep;
-	}
-	@JsonIgnore
 	public StepAdvanced getStepAdvanced() {
 		return stepAdvanced;
 	}
@@ -86,6 +79,19 @@ public class StepDecision implements Serializable{
 	public void setDecisionId(String decisionId) {
 		this.decisionId = decisionId;
 	}
+	public int getNextStepId() {
+		return nextStepId;
+	}
+	public void setNextStepId(int nextStepId) {
+		this.nextStepId = nextStepId;
+	}
+	public String getNextStepNameId() {
+		return nextStepNameId;
+	}
+	public void setNextStepNameId(String nextStepNameId) {
+		this.nextStepNameId = nextStepNameId;
+	}
+	
 
 	
 	

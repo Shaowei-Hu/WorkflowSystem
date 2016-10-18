@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -21,8 +22,9 @@ public class StepAdvancedRepository extends BaseDao<StepAdvanced>{
 		Session session = super.getHibernateTemplate().getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		Criteria criteria = session.createCriteria(StepAdvanced.class);
+		
 		criteria.add(Restrictions.eq("version", version));
-
+		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		@SuppressWarnings("unchecked")
 		List<StepAdvanced> stepAdvanceds = criteria.list();
 
