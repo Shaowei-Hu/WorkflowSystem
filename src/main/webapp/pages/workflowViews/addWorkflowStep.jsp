@@ -119,7 +119,7 @@
 
 													<div class="form-group">
 														<label>Condition</label> <input class="form-control" name="condition">
-														<p class="help-block">User's name .</p>
+														<p class="help-block">Condition</p>
 													</div>
 
 

@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,13 +46,6 @@ public class WorkflowController {
 		return "workflowViews/updateWorkflow";
 	}
 	
-	@RequestMapping(value="/showStep/{stepId}", method = RequestMethod.GET)
-	public String showStep(@PathVariable String stepId, Model model){
-//		List<StepSimple> steps = workflowService.getStepSimpleByStepId(stepId);
-		List<StepSimple> steps = null;
-		model.addAttribute("steps", steps);
-		return "workflowViews/updateWorkflowStep";
-	}
 	
 	@RequestMapping(value="/updateWorkflow", method = RequestMethod.POST)
 	public String updateWorkfow(StepSimple stepSimple, String[] system, String[] decision, String[] condition, String[] nextStep){
@@ -80,7 +74,8 @@ public class WorkflowController {
 	
 	
 	@RequestMapping(value="/workflowStep", method = RequestMethod.POST)
-	public String createWorkflowStep(String workflowVersion, StepSimple stepSimple, String[] decision, String[] decisionId, String[] condition, String[] nextStep, Model model){
+	public String createWorkflowStep(String workflowVersion, StepSimple stepSimple, 
+			String[] decision, String[] decisionId, String[] condition, String[] nextStep, Model model){
 		workflowService.addWorkflowStep(workflowVersion, stepSimple, decision, decisionId, condition, nextStep);
 		model.addAttribute("workflowVersion", workflowVersion);
 		return "workflowViews/addWorkflowStep";
@@ -94,6 +89,20 @@ public class WorkflowController {
 	@RequestMapping(value="/workflowStep/{id}", method = RequestMethod.DELETE)
 	public String deleteWorkflowStep(@PathVariable String id){
 		workflowService.deleteStep(id);
+		return "workflowViews/updateWorkflow";
+	}
+	
+	@RequestMapping(value="/step/{id}", method = RequestMethod.GET)
+	public String showStep(@PathVariable String id, Model model){
+		StepAdvanced step = workflowService.getStepAdvancedById(id);	
+		model.addAttribute("step", step);
+		return "workflowViews/updateWorkflowStep";
+	}
+	
+	@RequestMapping(value="/updateWorkflowStep", method = RequestMethod.POST)
+	public String updateWorkflowStep(@ModelAttribute("step") StepAdvanced step, 
+			String[] decisionId, String[] decisionNameId, String[] condition, String[] decision,  String[] nextStep){
+		workflowService.updateWorkflowStep(step, decisionId, decisionNameId, condition, decision, nextStep);
 		return "workflowViews/updateWorkflow";
 	}
 

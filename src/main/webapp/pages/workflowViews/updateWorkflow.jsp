@@ -156,14 +156,16 @@
 		});
 	
     }});
-   */ 
+   */
+   
+   var version = $('#versionSelect').find(":selected").text();
     function showStep(id){
     	
-    	window.location.href = "${pageContext.request.contextPath }/workflow/showStep/" + id;
+    	window.location.href = "${pageContext.request.contextPath }/workflow/step/" + id;
     }
     
     $("#plus").click(function(){
-    	var version = $('#versionSelect').find(":selected").text();
+    	
     	window.location.href = "${pageContext.request.contextPath }/workflow/addWorkflowStep/"+version;
     });
     

@@ -37,7 +37,7 @@
               <input type="password" class="form-control input-lg" placeholder="Password" name="password">
             </div>
             <div class="form-group">
-              <button class="btn btn-primary btn-lg btn-block">Sign In</button>
+              <button class="btn btn-primary btn-lg btn-block" title="Connect to <%=getServletContext().getServerInfo() %>">Sign In</button>
               <h4><span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span></h4>
             </div>
           </form>

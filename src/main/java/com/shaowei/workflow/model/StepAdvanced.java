@@ -98,6 +98,11 @@ public class StepAdvanced implements Serializable{
 	public void setVersion(String version) {
 		this.version = version;
 	}
+	@Override
+	public String toString() {
+		return "StepAdvanced [id=" + id + ", version=" + version + ", stepId=" + stepId + ", stepName=" + stepName + ", phase=" + phase + ", service="
+				+ service + ", autority=" + autority + ", decisions=" + decisions + "]";
+	}
 	
 	
 	

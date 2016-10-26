@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.shaowei.workflow.dao.StepAdvancedRepository;
+import com.shaowei.workflow.exception.CustomGenericException;
 import com.shaowei.workflow.model.StepAdvanced;
 import com.shaowei.workflow.model.StepDecision;
 import com.shaowei.workflow.model.StepSimple;
@@ -19,8 +20,8 @@ public class WorkfowServiceImpl implements WorkflowService{
 	private StepAdvancedRepository stepAdvancedRepository;
 	
 	@Override
-	public StepAdvanced getStepAdvancedById(int id) {
-		
+	public StepAdvanced getStepAdvancedById(String idString) {
+		int id = Integer.parseInt(idString);
 		return stepAdvancedRepository.get(id);
 	}
 
@@ -89,7 +90,7 @@ public class WorkfowServiceImpl implements WorkflowService{
 				stepDecision.setDecision(decision[i]);
 				stepDecision.setDecisionId(decisionId[i]);
 				if(!nextStepId[i].contains("-")){
-					StepAdvanced nextStep = this.getStepAdvancedById(Integer.parseInt(nextStepId[i]));
+					StepAdvanced nextStep = this.getStepAdvancedById(nextStepId[i]);
 					stepDecision.setNextStepId(nextStep.getId());
 					stepDecision.setNextStepNameId(nextStep.getStepId());
 				}
@@ -125,6 +126,58 @@ public class WorkfowServiceImpl implements WorkflowService{
 		int id = Integer.parseInt(idString);
 		stepAdvancedRepository.delete(id);
 		return true;
+	}
+
+	@Override
+	public boolean updateWorkflowStep(StepAdvanced step, 
+			String[] decisionId, String[] decisionNameId, String[] condition, String[] decision,  String[] nextStepId) {
+		
+
+		StepAdvanced stepAdvanced = stepAdvancedRepository.get(step.getId());
+		stepAdvanced.setVersion(step.getVersion());
+		stepAdvanced.setStepId(step.getStepId());
+		stepAdvanced.setStepName(step.getStepName());
+		stepAdvanced.setPhase(step.getPhase());
+		stepAdvanced.setService(step.getService());
+
+		
+		for(int i=0; i<decision.length; i++){//One decision technical is added in the step creation jsp for add new decisions, and we don't persist this one so length-1
+			if(!"".equals(decision[i])){
+				if(i<stepAdvanced.getDecisions().size()){
+					StepDecision stepDecision = stepAdvanced.getDecisions().get(i);
+					stepDecision.setCondition(condition[i]);
+					stepDecision.setDecision(decision[i]);
+					stepDecision.setDecisionId(decisionId[i]);
+					if(!"".equals(nextStepId[i])&&!nextStepId[i].contains("-")){
+						StepAdvanced nextStep = this.getStepAdvancedById(nextStepId[i]);
+						if(nextStep==null){
+							throw new CustomGenericException("500", "Workflow step null or next step null");
+						}
+						stepDecision.setNextStepId(nextStep.getId());
+						stepDecision.setNextStepNameId(nextStep.getStepId());
+					}
+				} else {
+					StepDecision stepDecision = new StepDecision();
+					stepDecision.setCondition(condition[i]);
+					stepDecision.setDecision(decision[i]);
+					stepDecision.setDecisionId(decisionId[i]);
+					if(!nextStepId[i].contains("-")){
+						StepAdvanced nextStep = this.getStepAdvancedById(nextStepId[i]);
+						stepDecision.setNextStepId(nextStep.getId());
+						stepDecision.setNextStepNameId(nextStep.getStepId());
+					}
+					stepDecision.setStepAdvanced(step);// may cause stack overflow error (it is not this cause stack over flow error, it is json transformer who may cause the problem)
+					stepAdvanced.getDecisions().add(stepDecision);
+					
+				}
+
+			}
+			
+		}
+		
+		stepAdvancedRepository.update(stepAdvanced);
+		
+		return false;
 	}
 
 }
