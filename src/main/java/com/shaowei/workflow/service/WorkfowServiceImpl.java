@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.shaowei.workflow.dao.StepAdvancedRepository;
+import com.shaowei.workflow.dao.StepDecisionRepository;
 import com.shaowei.workflow.exception.CustomGenericException;
 import com.shaowei.workflow.model.StepAdvanced;
 import com.shaowei.workflow.model.StepDecision;
@@ -18,6 +19,9 @@ public class WorkfowServiceImpl implements WorkflowService{
 
 	@Resource
 	private StepAdvancedRepository stepAdvancedRepository;
+	
+	@Resource
+	StepDecisionRepository stepDecisionRepository;
 	
 	@Override
 	public StepAdvanced getStepAdvancedById(String idString) {
@@ -177,6 +181,12 @@ public class WorkfowServiceImpl implements WorkflowService{
 		
 		stepAdvancedRepository.update(stepAdvanced);
 		
+		return false;
+	}
+
+	@Override
+	public boolean deleteDecision(String id) {
+		stepDecisionRepository.delete(Integer.parseInt(id));
 		return false;
 	}
 

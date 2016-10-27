@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -104,6 +105,16 @@ public class WorkflowController {
 			String[] decisionId, String[] decisionNameId, String[] condition, String[] decision,  String[] nextStep){
 		workflowService.updateWorkflowStep(step, decisionId, decisionNameId, condition, decision, nextStep);
 		return "workflowViews/updateWorkflow";
+	}
+	
+	
+	
+	@RequestMapping(value="/workflowDecision/{id}", method = RequestMethod.DELETE)
+	public HttpHeaders deleteDecision(@PathVariable String id){
+		workflowService.deleteDecision(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-workflowsystem-message", "ok");
+		return headers;
 	}
 
 }

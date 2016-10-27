@@ -21,6 +21,7 @@ public interface WorkflowService {
 	public List<String> getWorkflowVersions();
 	public boolean deleteStep(String id);
 	public boolean updateWorkflowStep(StepAdvanced step, String[] decisionId, String[] decisionNameId, String[] condition, String[] decision, String[] nextStep);
+	public boolean deleteDecision(String id);
 
 	
 }

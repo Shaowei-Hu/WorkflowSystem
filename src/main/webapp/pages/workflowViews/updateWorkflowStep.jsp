@@ -294,7 +294,18 @@
 	
 	function deleteDecision(id){
 		var flag = confirm("Do you want to delete this decision?");
-		if(flag) $("#decision" + id).remove();
+		if(flag){
+			$("#decision" + id).remove();
+			$.ajax({
+	    	    url: '${pageContext.request.contextPath }/workflow/workflowDecision/'+id,
+	    	    type: 'DELETE',
+	    	    success: function(result) {
+	    	        alert(id + " has been deleted.");
+	    	    }
+	    	});
+			location.reload();
+		}
+		
 	}
 	</script>
 
