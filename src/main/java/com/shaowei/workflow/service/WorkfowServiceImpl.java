@@ -30,30 +30,6 @@ public class WorkfowServiceImpl implements WorkflowService{
 	}
 
 	@Override
-	public String getServiceByStepId(int stepId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getStepNameByStepId(String stepId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public StepAdvanced getStepsByStepId(String stepId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public StepAdvanced getFullStepById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<StepAdvanced> getWorkflowByVersion(String version) {
 		return stepAdvancedRepository.getWorkflowByVersion(version);
 	}
@@ -189,5 +165,11 @@ public class WorkfowServiceImpl implements WorkflowService{
 		stepDecisionRepository.delete(Integer.parseInt(id));
 		return false;
 	}
+
+	@Override
+	public StepDecision getDecision(String id) {
+		return stepDecisionRepository.get(Integer.parseInt(id));
+	}
+
 
 }

@@ -3,7 +3,9 @@ package com.shaowei.workflow.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -22,8 +24,12 @@ public class HistoryDao extends BaseDao<History>{
 		session.beginTransaction();
 		Criteria criteria = session.createCriteria(History.class);
 		criteria.add(Restrictions.eq("document", document));
+		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		@SuppressWarnings("unchecked")
 		List<History> histories = criteria.list();
+		for(History h : histories){
+			Hibernate.initialize(h.getStepDecision().getStepAdvanced());
+		}
 		session.getTransaction().commit();
 		return histories;
 	}

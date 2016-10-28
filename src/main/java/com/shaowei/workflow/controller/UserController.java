@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.shaowei.workflow.exception.CustomGenericException;
 import com.shaowei.workflow.model.KeyValue;
 import com.shaowei.workflow.model.User;
-import com.shaowei.workflow.service.DocumentServiceInterface;
+import com.shaowei.workflow.service.DocumentService;
 import com.shaowei.workflow.service.UserService;
 
 @Controller
@@ -25,7 +25,7 @@ public class UserController {
 	@Resource
 	UserService userService;
 	@Resource
-	DocumentServiceInterface documentService;
+	DocumentService documentService;
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String login(@RequestParam("username") String username, @RequestParam("password") String password, HttpServletRequest request) {
@@ -37,9 +37,13 @@ public class UserController {
 			throw new CustomGenericException("100", "Login error");
 	}
 	
-	@RequestMapping(value="/getDestinationByStepID/{id}", method = RequestMethod.GET)
-	public @ResponseBody List<KeyValue> getDestinationByStepID(@PathVariable int id){		
-		return userService.getDestionationByStepId(id);
+
+	/*
+	 * get the next step service add the user in the service
+	 */
+	@RequestMapping(value="/getDestinationByDecisionID/{id}", method = RequestMethod.GET)
+	public @ResponseBody List<KeyValue> getDestinationByDecisionID(@PathVariable int id){		
+		return userService.getDestionationByDecisionId(id);
 	}
 	
 	@RequestMapping(value = "/welcome", method = RequestMethod.GET)

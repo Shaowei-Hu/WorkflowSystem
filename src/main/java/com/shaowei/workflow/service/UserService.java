@@ -67,6 +67,7 @@ public class UserService {
 	public boolean updateUser(User user){
 		
 		try {
+			user.setUserPassword("initial");
 			String managerIdName = user.getManagerId();
 			String partnerIdName = user.getPartnerId();
 			if(managerIdName!=null && managerIdName!=""){
@@ -108,8 +109,9 @@ public class UserService {
 		return userDao.getUserJobByJob(job);
 	}
 	
-	public List<KeyValue> getDestionationByStepId(int id){
-		String job = workflowService.getServiceByStepId(id);
+	public List<KeyValue> getDestionationByDecisionId(int id){
+		int nextStepId = workflowService.getDecision(id+"").getNextStepId();
+		String job = workflowService.getStepAdvancedById(nextStepId+"").getService();
 		return getUserJobByJob(job);
 	}
 	

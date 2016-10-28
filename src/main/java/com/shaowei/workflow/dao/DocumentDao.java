@@ -35,11 +35,12 @@ public class DocumentDao extends BaseDao<Document>{
 		List<Document> documents = criteria.list();
 		Document document = null;
 		if(documents!=null && documents.size()>0){
-			Hibernate.initialize(documents);
-//			document = documents.get(0);
-//			document.getComments().size();
-//			document.getHistory().size();
-//			document.getIntervenors().size();
+			document = documents.get(0);
+			Hibernate.initialize(document.getComments());
+			Hibernate.initialize(document.getHistory());
+			Hibernate.initialize(document.getIntervenors());
+			Hibernate.initialize(document.getLectors());
+
 		}
 		session.getTransaction().commit();
 		return document;

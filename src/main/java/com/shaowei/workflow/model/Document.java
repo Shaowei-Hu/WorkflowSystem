@@ -57,8 +57,9 @@ public class Document implements Serializable{
 	@JoinTable(name="wkf_intervenor_document", joinColumns={@JoinColumn(name="DOCUMENT_ID")}, inverseJoinColumns={@JoinColumn(name="INTERVENOR_ID")})
 	private Set<User> intervenors;
 	
-	@Column(name="CURRENTSTEP", length=64)
-	private String currentStep;
+	@ManyToOne
+	@JoinColumn(name="CURRENTSTEP_ID")
+	private StepAdvanced currentStep;
 	
 	@Column(name="STEPDATE")
 	private Date stepDate;
@@ -123,14 +124,6 @@ public class Document implements Serializable{
 		this.history = history;
 	}
 
-	public String getStep() {
-		return currentStep;
-	}
-
-	public void setStep(String step) {
-		this.currentStep = step;
-	}
-
 	public User getAuthor() {
 		return author;
 	}
@@ -155,13 +148,6 @@ public class Document implements Serializable{
 		this.lectors = lectors;
 	}
 
-	public String getCurrentStep() {
-		return currentStep;
-	}
-
-	public void setCurrentStep(String currentStep) {
-		this.currentStep = currentStep;
-	}
 	@JsonIgnore
 	public Set<User> getIntervenors() {
 		return intervenors;
@@ -194,6 +180,23 @@ public class Document implements Serializable{
 	public void setStepDate(Date stepDate) {
 		this.stepDate = stepDate;
 	}
+
+	public StepAdvanced getCurrentStep() {
+		return currentStep;
+	}
+
+	public void setCurrentStep(StepAdvanced currentStep) {
+		this.currentStep = currentStep;
+	}
+
+	@Override
+	public String toString() {
+		return "Document [documentId=" + documentId + ", client=" + client + ", amount=" + amount + ", resource=" + resource + ", author=" + author
+				+ ", responsible=" + responsible + ", lectors=" + lectors + ", intervenors=" + intervenors + ", currentStep=" + currentStep + ", stepDate="
+				+ stepDate + ", comments=" + comments + ", history=" + history + ", amountSt=" + amountSt + ", resourceSt=" + resourceSt + "]";
+	}
+	
+	
 
 
 	

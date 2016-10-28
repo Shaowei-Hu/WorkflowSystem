@@ -29,7 +29,7 @@
       
       
       <div class="modal-body">
-          <form class="form col-md-12 center-block" action="admin/login" method="post">
+          <form class="form col-md-12 center-block" action="${pageContext.request.contextPath }/admin/login" method="post">
             <div class="form-group">
               <input type="text" class="form-control input-lg" placeholder="Username" name="username">
             </div>
