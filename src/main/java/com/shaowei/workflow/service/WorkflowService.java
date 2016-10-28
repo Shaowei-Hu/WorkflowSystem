@@ -22,4 +22,10 @@ public interface WorkflowService {
 	public boolean deleteDecision(String id);
 	public StepDecision getDecision(String id);
 	
+	public String getCurrentWorkflowVersion();
+	public String getCurrentWorkflowInitialStep();
+	
+	public boolean setCurrentWorkflowVersion(String version);
+	public boolean setCurrentWorkflowInitialStep(String initStepId);
+	
 }

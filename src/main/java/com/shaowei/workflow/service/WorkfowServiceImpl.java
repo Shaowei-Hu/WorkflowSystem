@@ -13,6 +13,7 @@ import com.shaowei.workflow.exception.CustomGenericException;
 import com.shaowei.workflow.model.StepAdvanced;
 import com.shaowei.workflow.model.StepDecision;
 import com.shaowei.workflow.model.StepSimple;
+import com.shaowei.workflow.util.PropertiesUtil;
 
 @Service
 public class WorkfowServiceImpl implements WorkflowService{
@@ -169,6 +170,27 @@ public class WorkfowServiceImpl implements WorkflowService{
 	@Override
 	public StepDecision getDecision(String id) {
 		return stepDecisionRepository.get(Integer.parseInt(id));
+	}
+
+	@Override
+	public String getCurrentWorkflowVersion() {
+		
+		return PropertiesUtil.getProperties("workflow.properties", "currentVersion");
+	}
+
+	@Override
+	public String getCurrentWorkflowInitialStep() {
+		return PropertiesUtil.getProperties("workflow.properties", "initialStep");
+	}
+
+	@Override
+	public boolean setCurrentWorkflowVersion(String version) {
+		return PropertiesUtil.setProperties("workflow.properties", "currentVersion", version);
+	}
+
+	@Override
+	public boolean setCurrentWorkflowInitialStep(String initStepId) {
+		return PropertiesUtil.setProperties("workflow.properties", "initialStep", initStepId);
 	}
 
 
