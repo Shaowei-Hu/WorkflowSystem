@@ -2,7 +2,7 @@ package com.shaowei.authorization.repository;
 
 import java.util.List;
 
-public interface Dao<T> {
+public interface RepositoryI<T> {
 	
 	public void add(T t);
 	public void delete(T t);

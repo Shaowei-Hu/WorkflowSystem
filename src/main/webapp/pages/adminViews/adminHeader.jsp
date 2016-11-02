@@ -34,10 +34,10 @@
 						</ul>
 					</li>
 
-					<li><a href="getMyInformation.action"><i class="fa fa-edit fa-fw"></i> Modify<span class="fa arrow"></span></a>
+					<li><a href="getMyInformation.action"><i class="fa fa-edit fa-fw"></i> Authorization<span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
-							<li><a href="#"><i class="fa fa-university"></i> Cours</a></li>
-							<li><a href="getAllTeachersAdminOperation.action"><i class="fa fa-user"></i> Teacher</a></li>
+							<li><a href="${pageContext.request.contextPath }/authorization/allPrivilegePage"><i class="fa fa-university"></i> Privileges</a></li>
+							<li><a href="${pageContext.request.contextPath }/authorization/addPrivilegePage"><i class="fa fa-user"></i> AddPrivilege</a></li>
 						</ul>
 					</li>
 					

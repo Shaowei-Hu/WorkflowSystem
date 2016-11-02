@@ -10,11 +10,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+
+import com.shaowei.authorization.domain.Role;
 
 
 @Entity(name="WKF_USER")
@@ -64,6 +68,10 @@ public class User implements Serializable{
 	private String partnerId;
 	@Transient
 	private String capacity;
+	
+	@ManyToMany
+	@JoinTable(name="wkf_user_role", joinColumns={@JoinColumn(name="USER_ID")}, inverseJoinColumns={@JoinColumn(name="ROLE_ID")})
+	private Set<Role> roles;
 	
 	
 	public int getUserId() {
@@ -154,6 +162,14 @@ public class User implements Serializable{
 	public void setPartnerId(String partnerId) {
 		this.partnerId = partnerId;
 	}
+	public Set<Role> getRoles() {
+		return roles;
+	}
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+	
+	
 	
 
 	

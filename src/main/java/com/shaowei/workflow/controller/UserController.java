@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.shaowei.workflow.dto.KeyValue;
 import com.shaowei.workflow.exception.CustomGenericException;
-import com.shaowei.workflow.model.KeyValue;
 import com.shaowei.workflow.model.User;
 import com.shaowei.workflow.service.DocumentService;
 import com.shaowei.workflow.service.UserService;

@@ -10,7 +10,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BaseDao<T extends Serializable> extends HibernateDaoSupport implements Dao<T>{
+public class BaseRepository<T extends Serializable> extends HibernateDaoSupport implements RepositoryI<T>{
 	
 	Class<T> type;
 	
@@ -19,11 +19,11 @@ public class BaseDao<T extends Serializable> extends HibernateDaoSupport impleme
 		setSessionFactory(sessionFactory);
 	}
 	
-	BaseDao() {
+	BaseRepository() {
 		
 	}
 	
-	BaseDao(Class<T> type) {
+	BaseRepository(Class<T> type) {
 		this.type=type;
 	}
 

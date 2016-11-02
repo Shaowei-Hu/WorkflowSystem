@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.shaowei.workflow.dao.UserDao;
-import com.shaowei.workflow.model.KeyValue;
+import com.shaowei.workflow.dto.KeyValue;
 import com.shaowei.workflow.model.User;
 
 @Service

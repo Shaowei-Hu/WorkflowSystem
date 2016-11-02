@@ -1,4 +1,4 @@
-package com.shaowei.workflow.model;
+package com.shaowei.workflow.dto;
 
 public class KeyValue {
 	

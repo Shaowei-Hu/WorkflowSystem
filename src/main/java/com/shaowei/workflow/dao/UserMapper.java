@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
 
-import com.shaowei.workflow.model.KeyValue;
+import com.shaowei.workflow.dto.KeyValue;
 
 public interface UserMapper {
 	

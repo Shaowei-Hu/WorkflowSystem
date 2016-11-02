@@ -24,14 +24,14 @@ public class Role implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@Column(name="ROLE_NAME",length=16)
+	@Column(name="ROLE_NAME",length=32)
 	private String privilegeName;
 	
 	@ManyToMany
 	@JoinTable(name="AUTHORIZ_ROLE_PRIVILEGE", joinColumns={@JoinColumn(name="ROLE_ID")}, inverseJoinColumns={@JoinColumn(name="PRIVILEGE_ID")})
 	private List<Privilege> privileges;
 	
-	@Column(name="ROLE_DESC",length=16)
+	@Column(name="ROLE_DESC",length=64)
 	private String description;
 
 	public int getId() {
