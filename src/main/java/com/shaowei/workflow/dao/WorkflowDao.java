@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 
-import com.shaowei.workflow.model.KeyValue;
+import com.shaowei.workflow.dto.KeyValue;
 import com.shaowei.workflow.model.StepSimple;
 
 @Repository

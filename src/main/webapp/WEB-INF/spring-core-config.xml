@@ -4,6 +4,7 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans     
         http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -12,14 +13,17 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/tx 
-        http://www.springframework.org/schema/tx/spring-tx.xsd ">
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
  
 	<!-- work with Spring Annotation -->
 	<context:annotation-config />
 
 	<!-- set the location where Spring can find the entities Annotation -->
 	<context:component-scan
-		base-package="com.shaowei.workflow.dao, com.shaowei.workflow.service, com.shaowei.workflow.model, com.shaowei.workflow.controller" />
+		base-package="com.shaowei.workflow.dao, com.shaowei.workflow.service, com.shaowei.workflow.model, com.shaowei.workflow.controller, com.shaowei.authorization.*" />
+		
 		
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
@@ -54,7 +58,10 @@
 			<value>UserDao</value> </list> </property> -->
 
 		<property name="packagesToScan">
-			<value>com.shaowei.workflow.model</value>
+			<array>
+				<value>com.shaowei.workflow.model</value>
+				<value>com.shaowei.authorization.domain</value>
+			</array>		
 		</property>
 
 		<property name="hibernateProperties">
@@ -69,6 +76,8 @@
 			</props>
 		</property>
 	</bean>
+
+
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -117,9 +126,6 @@
 		</aop:aspect>
 		
 	</aop:config>
-
-
-
 
 
 </beans>

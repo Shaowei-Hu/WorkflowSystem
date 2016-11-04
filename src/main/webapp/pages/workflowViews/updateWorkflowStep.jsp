@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="st" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html lang="en">
@@ -32,10 +33,11 @@
 
 
 		<div id="page-wrapper">
-			<form role="form" action="/Workflow/workflow/updateWorkflow" method="post">
+			<st:form action="${pageContext.request.contextPath }/workflow/updateWorkflowStep" method="POST" modelAttribute="step">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Workflow Step</h1>
+						<h1 class="page-header">Update Workflow Step <small>(<c:out value="${step.version}"/>)</small></h1>
+						<st:input type="hidden" path="version" name="step.version" value="${step.version}"/>
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
@@ -51,12 +53,13 @@
 									<fieldset>
 										<div class="col-lg-6">
 											<div class="form-group">
-												<label>Step Id</label> <input class="form-control" name="step_id" value="${steps[0].step_id}">
+												<label>Step Id</label> <st:input class="form-control" path="stepId" name="step.stepId" value="${step.stepId}"/>
+												<st:input type="hidden" path="id" name="step.id" value="${step.id}"/>
 												<p class="help-block">User's name .</p>
 											</div>
 
 											<div class="form-group">
-												<label>Phase</label> <input class="form-control" name="phase" value="${steps[0].phase}">
+												<label>Phase</label> <st:input class="form-control" path="phase" name="step.phase" value="${step.phase}"/>
 												<p class="help-block">User's name .</p>
 											</div>
 										</div>
@@ -65,11 +68,11 @@
 
 										<div class="col-lg-6">
 											<div class="form-group">
-												<label>Step Name</label> <input class="form-control" name="step_name" value="${steps[0].step_name}">
+												<label>Step Name</label> <st:input class="form-control" path="stepName" name="step.stepName" value="${step.stepName}"/>
 												<p class="help-block">User's name .</p>
 											</div>
 											<div class="form-group">
-												<label>Service</label> <input class="form-control" name="service" value="${steps[0].service}">
+												<label>Service</label> <st:input class="form-control" path="service" name="step.service" value="${step.service}"/>
 												<p class="help-block">Intervoner service .</p>
 											</div>
 										</div>
@@ -86,7 +89,7 @@
 					<!-- /.col-lg-12 -->
 				</div>
 				<!-- /.row -->
-				<c:forEach var="item" items="${steps}">
+				<c:forEach var="item" items="${step.decisions}">
 				
 					<div class="row" id="decision${item.id}">
 						<div class="col-lg-12">
@@ -98,37 +101,39 @@
 									<div class="panel-body">
 										<div class="row">
 											<fieldset id="info2modify">
+
 												<div class="col-lg-6">
 
 													<div class="form-group">
-														<label>Decision</label> <input class="form-control" name="decision" value="${item.decision}">
-														<p class="help-block">Decision</p>
+														<label>Decision Id</label> <input class="form-control" name="decisionNameId" value="${item.decisionId}">
+														<input type="hidden" name="decisionId" value="${item.id}">
+														<p class="help-block">Decision Id</p>
 													</div>
 
 													<div class="form-group">
-														<label>Condition</label> <input class="form-control" name="condition">
-														<p class="help-block">User's name .</p>
+														<label>Condition</label> <input class="form-control" name="condition" value="${item.condition}">
+														<p class="help-block">Condition</p>
 													</div>
-
-
 
 
 												</div>
 												<!-- /.col-lg-6 (nested) -->
 												<div class="col-lg-6">
+												
+													<div class="form-group">
+														<label>Decision</label> <input class="form-control" name="decision" value="${item.decision}">
+														<p class="help-block">Decision</p>
+													</div>
 
 
 													<div class="form-group">
 														<label for="select">Next Step Id</label>
 														<select id="" class="form-control mySelect" name="nextStep">
-															<option value="${item.next_step_id}">${item.next_step_id}</option>
+															<option value="${item.nextStepId}">${item.nextStepNameId}</option>
 														</select>
 														<p class="help-block">The next step which the decision will point to</p>
 													</div>
 													 
-													<div class="form-group">
-														<input type="hidden" class="form-control" name="system" value="${item.id}">		
-													</div>
 
 												</div>
 												<!-- /.col-lg-6 (nested) -->
@@ -156,8 +161,8 @@
 												<div class="col-lg-6">
 
 													<div class="form-group">
-														<label>Decision</label> <input class="form-control" name="decision">
-														<p class="help-block">Decision</p>
+														<label>Decision Id</label> <input class="form-control" name="decisionId">
+														<p class="help-block">Decision Id</p>
 													</div>
 
 													<div class="form-group">
@@ -171,19 +176,22 @@
 												</div>
 												<!-- /.col-lg-6 (nested) -->
 												<div class="col-lg-6">
+												
+													<div class="form-group">
+														<label>Decision</label> <input class="form-control" name="decision">
+														<p class="help-block">Decision</p>
+													</div>
 
 
 													<div class="form-group">
-														<label for="select">Next Step</label>
+														<label for="select">Next Step Id</label>
 														<select id="" class="form-control mySelect" name="nextStep">
-															<option>--Choose next step--</option>
+															<option value="--">--</option>
 														</select>
 														<p class="help-block">The next step which the decision will point to</p>
 													</div>
-													
-													<div class="form-group">
-														<input type="hidden" class="form-control" name="system">
-													</div>
+													 
+
 
 												</div>
 												<!-- /.col-lg-6 (nested) -->
@@ -217,7 +225,7 @@
 					</div>
 				</div>
 				<br>
-			</form>
+			</st:form>
 		</div>
 		<!-- /#page-wrapper -->
 
@@ -226,7 +234,7 @@
 	</div>
 	<!-- /#wrapper -->
 
-	<script src="/Workflow/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+	<%-- <script src="${pageContext.request.contextPath }/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script> --%>
 
 	<script>
 	var ajaxFlag = true;
@@ -239,11 +247,11 @@
 					
 							if(ajaxFlag){
 								
-						        $.ajax({url: "/Workflow/workflow/getWorkflow", success: function(steps){
+						        $.ajax({url: "${pageContext.request.contextPath }/workflow/workflow/${step.version}", success: function(steps){
 						        	ajaxFlag = false;
 									$.each(steps, function(i, items) {
 
-										$(".mySelect").append("<option value='" + steps[i].step_id + "'>" + steps[i].step_id +" - "+ steps[i].step_name + "</option>");
+										$(".mySelect").append("<option value='" + steps[i].id + "'>" + steps[i].stepId +" - "+ steps[i].stepName + "</option>");
 									
 									});
 									
@@ -286,7 +294,18 @@
 	
 	function deleteDecision(id){
 		var flag = confirm("Do you want to delete this decision?");
-		if(flag) $("#decision" + id).remove();
+		if(flag){
+			$("#decision" + id).remove();
+			$.ajax({
+	    	    url: '${pageContext.request.contextPath }/workflow/workflowDecision/'+id,
+	    	    type: 'DELETE',
+	    	    success: function(result) {
+	    	        alert(id + " has been deleted.");
+	    	    }
+	    	});
+			location.reload();
+		}
+		
 	}
 	</script>
 

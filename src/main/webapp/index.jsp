@@ -29,7 +29,7 @@
       
       
       <div class="modal-body">
-          <form class="form col-md-12 center-block" action="/Workflow/user/login" method="post">
+          <form class="form col-md-12 center-block" action="${pageContext.request.contextPath }/user/login" method="post">
             <div class="form-group">
               <input type="text" class="form-control input-lg" placeholder="Username" name="username">
             </div>
@@ -56,9 +56,9 @@
 <!-- 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 		<script src="/js/bootstrap.min.js"></script> -->
 			<!-- jQuery -->
- 	<script src="/Workflow/scriptLibrary/jquery/jquery-1.11.1.js"></script>
+ 	<script src="${pageContext.request.contextPath }/scriptLibrary/jquery/jquery-1.11.1.js"></script>
  
 	<!-- Bootstrap Core JavaScript -->
-	<script src="/Workflow/scriptLibrary/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath }/scriptLibrary/bootstrap/js/bootstrap.min.js"></script>
 	</body>
 </html>

@@ -27,7 +27,7 @@ public class MavenProperties implements Serializable {
 		loger.info("Application Maven properties init");
 		javaVersion = getProperty("java.version");
 		hibernateVersion = getProperty("hibernate.version");
-		springVersion = getProperty("spring.version");
+		springVersion = getProperty("org.springframework.version");
 		applicationVersion = getProperty("application.version");
 	}
 

@@ -1,30 +1,32 @@
 package com.shaowei.workflow.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-
-@Entity(name="wkf_workflow")
-public class Step implements Serializable{
+@Entity(name="wkf_workflow_step")
+public class StepAdvanced implements Serializable{
 		
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5004519918038632155L;
+	private static final long serialVersionUID = 4744891175664788790L;
 	
 	@Id
 	@Column(name="ID")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	
+	@Column(name="VERSION", length=16)
+	private String version;
 	
 	@Column(name="STEP_ID", length=8)
 	private String stepId;
@@ -33,19 +35,16 @@ public class Step implements Serializable{
 	
 	@Column(name="PHASE", length=64)
 	private String phase;
-	@Column(name="DECISION", length=64)
-	private String decision;
-	@Column(name="CONDITIONN", length=64)
-	private String condition;
+
 	
 	@Column(name="SERVICE", length=32)
 	private String service;
 	@Column(name="AUTORITY", length=16)
 	private String autority;
 	
-	@OneToOne(fetch=FetchType.LAZY, optional=false)
-	@JoinColumn(name="NEXT_STEP_ID")
-	private Step nextStep;
+	//mappedBy an attribute in the other class
+	@OneToMany(mappedBy="stepAdvanced", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	private List<StepDecision> decisions;
 	
 	
 	public String getStepId() {
@@ -66,31 +65,14 @@ public class Step implements Serializable{
 	public void setPhase(String phase) {
 		this.phase = phase;
 	}
-	public String getDecision() {
-		return decision;
-	}
-	public void setDecision(String decision) {
-		this.decision = decision;
-	}
-	public String getCondition() {
-		return condition;
-	}
-	public void setCondition(String condition) {
-		this.condition = condition;
-	}
+
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	@JsonIgnore
-	public Step getNextStep() {
-		return nextStep;
-	}
-	public void setNextStep(Step nextStep) {
-		this.nextStep = nextStep;
-	}
+
 	public String getService() {
 		return service;
 	}
@@ -103,6 +85,25 @@ public class Step implements Serializable{
 	public void setAutority(String autority) {
 		this.autority = autority;
 	}
+	
+	public List<StepDecision> getDecisions() {
+		return decisions;
+	}
+	public void setDecisions(List<StepDecision> decisions) {
+		this.decisions = decisions;
+	}
+	public String getVersion() {
+		return version;
+	}
+	public void setVersion(String version) {
+		this.version = version;
+	}
+	@Override
+	public String toString() {
+		return "StepAdvanced [id=" + id + ", version=" + version + ", stepId=" + stepId + ", stepName=" + stepName + ", phase=" + phase + ", service="
+				+ service + ", autority=" + autority + ", decisions=" + decisions + "]";
+	}
+	
 	
 	
 

@@ -18,7 +18,7 @@ import com.shaowei.workflow.model.Decision;
 import com.shaowei.workflow.model.Document;
 import com.shaowei.workflow.model.History;
 import com.shaowei.workflow.model.User;
-import com.shaowei.workflow.service.DocumentServiceInterface;
+import com.shaowei.workflow.service.DocumentService;
 import com.shaowei.workflow.service.UserService;
 
 @Controller
@@ -28,7 +28,7 @@ public class DocumentController {
 	@Resource
 	UserService userService;
 	@Resource
-	DocumentServiceInterface documentService;
+	DocumentService documentService;
 	
 
 	@RequestMapping(value="/create", method=RequestMethod.GET)
@@ -55,6 +55,7 @@ public class DocumentController {
 	public String showDocument(@PathVariable int documentId, Model model){
 		Document document = documentService.getFullDocument(documentId);
 //		List<Step> steps = documentService.getStepsByDocument(document);
+		System.out.println(document);
 		model.addAttribute("document", document);
 		model.addAttribute("comment", new Comment());
 		model.addAttribute("decision", new Decision());

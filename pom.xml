@@ -3,11 +3,13 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.6</java.version>
-		<spring.version>4.0.0.RELEASE</spring.version>
+		<java.version>1.7</java.version>
+		<org.springframework.version>4.0.0.RELEASE</org.springframework.version>
+		<org.springframework.data.version>1.9.0.RELEASE</org.springframework.data.version>
 		<hibernate.version>3.6.0.Final</hibernate.version>
 		<application.version>0.0.1-SNAPSHOT</application.version>
 	</properties>
+	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.shaowei</groupId>
 	<artifactId>workflow</artifactId>
@@ -15,6 +17,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>workflow Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+	
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -38,32 +41,46 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>4.0.0.RELEASE</version>
+			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>4.0.0.RELEASE</version>
+			<version>${org.springframework.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>3.6.0.Final</version>
+			<version>${hibernate.version}</version>
 		</dependency>
+
 		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		
+ 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>4.0.0.RELEASE</version>
+			<version>${org.springframework.version}</version>
+			<exclusions>
+	        	<exclusion>
+	            	<groupId>org.hibernate</groupId>
+	            	<artifactId>hibernate-core</artifactId>
+	        	</exclusion>
+    		</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>4.0.0.RELEASE</version>
+			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
-			<version>4.0.0.RELEASE</version>
+			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-dbcp</groupId>
@@ -84,7 +101,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>4.0.0.RELEASE</version>
+			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -117,8 +134,10 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
-			<version>4.0.0.RELEASE</version>
+			<version>${org.springframework.version}</version>
 		</dependency>
+
+		
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>

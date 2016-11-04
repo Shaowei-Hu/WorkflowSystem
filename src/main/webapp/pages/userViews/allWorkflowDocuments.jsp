@@ -69,7 +69,7 @@
 												<td class="desc"><c:out value="${item.resource}" /></td>
 												<td class="desc"><c:out value="${item.author.userName}" /></td>
 												<td class="desc"><c:out value="${item.responsible.userName}" /></td>
-												<td class="desc">${item.currentStep}</td>
+												<td class="desc"><c:out value="${item.currentStep.stepId}-${item.currentStep.stepName}" /></td>
 												<td class="desc"><c:out value="${item.stepDate}" /></td><td class="hideUrl">show/${item.documentId}</td></tr>
 										</c:forEach>
 									</tbody>
@@ -103,8 +103,8 @@
 	<!-- /#wrapper -->
 
 	<!-- DataTables JavaScript -->
-	<script src="/Workflow/scriptLibrary/datatables/media/js/jquery.dataTables.min.js"></script>
-	<script src="/Workflow/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+<!-- 	<script src="/Workflow/scriptLibrary/datatables/media/js/jquery.dataTables.min.js"></script>
+	<script src="/Workflow/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script> -->
 
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 	<script>

@@ -4,7 +4,7 @@
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
-	<display-name>Workflow</display-name>
+	<display-name>WorkflowSystem</display-name>
 	<description>Spring MVC web application</description>
 
 	<!-- For web context -->

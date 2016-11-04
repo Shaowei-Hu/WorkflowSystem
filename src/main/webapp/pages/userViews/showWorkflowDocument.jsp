@@ -264,7 +264,7 @@
 	<!-- Modal -->
 	<div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
-			<st:form method="post" modelAttribute="decision" action="/Workflow/document/transfer">
+			<st:form method="post" modelAttribute="decision" action="${pageContext.request.contextPath }/document/transfer">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -288,13 +288,16 @@
 								<st:hidden path="documentId" value="${document.documentId }"></st:hidden>
 								<div class="form-group">
 									<label class="control-label text-warning" for="inputSuccess">Actual step</label>
-									<p id="currentStep" class="form-control text-warning">${document.currentStep}</p>
+									<p id="currentStep" class="form-control text-warning">${document.currentStep.stepId} - ${document.currentStep.stepName}</p>
 								</div>
 
 								<div class="form-group">
 									<label class="control-label text-danger" for="inputSuccess">Decision</label>
 									<st:select id="decisionSelect" class="form-control text-danger" path="decisionId">
 										<option>--Choose decision--</option>
+										<c:forEach var="item" items="${document.currentStep.decisions}">
+											<option value="${item.id}">${item.decision }</option>
+										</c:forEach>
 									</st:select>
 								</div>
 
@@ -336,11 +339,11 @@
 	        $("#commentHide").show();
 	    });
 	    
-	    $("#transfer").click(function(){
+/* 	    $("#transfer").click(function(){
 	    	
 	    	var step = $("#currentStep").text();
 	    	var id = step.split("-")[0];
-	        $.ajax({url: "/Workflow/workflow/getDecisionByStepId/"+id, success: function(result){
+	        $.ajax({url: "${pageContext.request.contextPath }/workflow/getDecisionByStepId/"+id, success: function(result){
 	        	$.each( result, function( index, value ){
 		        	$("#decisionSelect").append($('<option>', {
 		        	    value: value.keyy,
@@ -349,11 +352,11 @@
 	        	});
 
 	        }});
-	    });
+	    }); */
 	    
-	    $("#decisionSelect").on("change", function() {
+ 	    $("#decisionSelect").on("change", function() {
 	    	  $("#destinationSelect").empty().append('<option selected="selected" value="0">--Choose destination--</option>');
-		        $.ajax({url: "/Workflow/user/getDestinationByStepID/"+this.value, success: function(result){
+		        $.ajax({url: "${pageContext.request.contextPath }/user/getDestinationByDecisionID/"+this.value, success: function(result){
 		        	$.each( result, function( index, value ){
 			        	$("#destinationSelect").append($('<option>', {
 			        	    value: value.keyy,
@@ -375,17 +378,17 @@
 		var documentId = $("#documentId").text();
 		$("#documentInfo").hide();
 		if(!historyFlag){
-	        $.ajax({url: "/Workflow/document/history/"+documentId, success: function(result){
+	        $.ajax({url: "${pageContext.request.contextPath }/document/history/"+documentId, success: function(result){
 	        	$.each( result, function( index, value ){
 	        		var timee = new Date(value.date);
 		        	$("#historyBody").append(
 		        			
 							"<tr>"+
 							"<td>"+timee+"</td>"+
-							"<td>"+value.step.stepId+"-"+value.step.stepName+"</td>"+
-							"<td>"+value.step.phase+"</td>"+
+							"<td>"+value.stepAdvanced.id+"-"+value.stepAdvanced.stepName+"</td>"+
+							"<td>"+value.stepAdvanced.phase+"</td>"+
 							"<td>"+value.responsible.userName+"</td>"+
-							"<td>"+value.step.decision+"</td>"+
+							"<td>"+value.stepDecision.decision+"</td>"+
 							"<td>"+value.nextResponsible.userName+"</td>"+
 							"<td>"+value.message+"</td>"+
 							"</tr>"

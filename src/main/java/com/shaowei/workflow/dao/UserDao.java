@@ -9,7 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.shaowei.workflow.model.KeyValue;
+import com.shaowei.workflow.dto.KeyValue;
 import com.shaowei.workflow.model.User;
 
 @Repository

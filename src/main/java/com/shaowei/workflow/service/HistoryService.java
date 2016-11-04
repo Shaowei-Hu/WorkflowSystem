@@ -26,6 +26,8 @@ public class HistoryService {
 	}
 	
 	public List<History> getHistoriesByDocument(Document document){
-		return historyDao.getHistoriesByDocument(document);
+		List<History> histories = historyDao.getHistoriesByDocument(document);
+//		System.out.println(histories.get(0).getStepDecision().getStepAdvanced().getStepName());
+		return histories;
 	}
 }

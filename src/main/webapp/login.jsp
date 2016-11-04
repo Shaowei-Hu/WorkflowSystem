@@ -29,7 +29,7 @@
       
       
       <div class="modal-body">
-          <form class="form col-md-12 center-block" action="admin/login" method="post">
+          <form class="form col-md-12 center-block" action="${pageContext.request.contextPath }/admin/login" method="post">
             <div class="form-group">
               <input type="text" class="form-control input-lg" placeholder="Username" name="username">
             </div>
@@ -37,7 +37,7 @@
               <input type="password" class="form-control input-lg" placeholder="Password" name="password">
             </div>
             <div class="form-group">
-              <button class="btn btn-primary btn-lg btn-block">Sign In</button>
+              <button class="btn btn-primary btn-lg btn-block" title="Connect to <%=getServletContext().getServerInfo() %>">Sign In</button>
               <h4><span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span></h4>
             </div>
           </form>
@@ -56,9 +56,9 @@
 <!-- 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 		<script src="/js/bootstrap.min.js"></script> -->
 			<!-- jQuery -->
- 	<script src="/Workflow/scriptLibrary/jquery/jquery-1.11.1.js"></script>
+ 	<script src="${pageContext.request.contextPath }/scriptLibrary/jquery/jquery-1.11.1.js"></script>
  
 	<!-- Bootstrap Core JavaScript -->
-	<script src="/Workflow/scriptLibrary/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath }/scriptLibrary/bootstrap/js/bootstrap.min.js"></script>
 	</body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html lang="en">
@@ -32,10 +33,10 @@
 
 
 		<div id="page-wrapper">
-			<form role="form" action="/Workflow/workflow/updateWorkflow" method="post">
+			<form action="${pageContext.request.contextPath }/workflow/workflowStep" method="post">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="page-header">Workflow Step</h1>
+						<h1 class="page-header">Create Workflow Step <small>(<c:out value="${workflowVersion}"/>)</small></h1>
 					</div>
 					<!-- /.col-lg-12 -->
 				</div>
@@ -49,15 +50,20 @@
 								<div class="row">
 
 									<fieldset>
-										<div class="col-lg-6">
+										<div class="col-lg-6">									
+											<div class="form-group">
+												<label>Version</label> <input class="form-control" value="<c:out value="${workflowVersion}"/>" disabled>
+												<input type="hidden" name="workflowVersion" value="<c:out value="${workflowVersion}"/>">
+												<p class="help-block">Workflow version</p>
+											</div>
 											<div class="form-group">
 												<label>Step Id</label> <input class="form-control" name="step_id">
-												<p class="help-block">User's name .</p>
+												<p class="help-block">Step Id</p>
 											</div>
 
 											<div class="form-group">
 												<label>Phase</label> <input class="form-control" name="phase">
-												<p class="help-block">User's name .</p>
+												<p class="help-block">Phase</p>
 											</div>
 										</div>
 										<!-- /.col-lg-6 (nested) -->
@@ -65,12 +71,16 @@
 
 										<div class="col-lg-6">
 											<div class="form-group">
+												<label>ID</label> <input class="form-control" name="" value="<c:out value=""/>" disabled>
+												<p class="help-block">System ID</p>
+											</div>										
+											<div class="form-group">
 												<label>Step Name</label> <input class="form-control" name="step_name">
-												<p class="help-block">User's name .</p>
+												<p class="help-block">Step's name </p>
 											</div>
 											<div class="form-group">
 												<label>Service</label> <input class="form-control" name="service">
-												<p class="help-block">Intervoner service .</p>
+												<p class="help-block">Intervenor service</p>
 											</div>
 										</div>
 										<!-- /.col-lg-6 (nested) -->
@@ -103,13 +113,13 @@
 												<div class="col-lg-6">
 
 													<div class="form-group">
-														<label>Decision</label> <input class="form-control" name="decision" ">
-														<p class="help-block">Decision</p>
+														<label>Decision Id</label> <input class="form-control" name="decisionId">
+														<p class="help-block">Decision Id</p>
 													</div>
 
 													<div class="form-group">
 														<label>Condition</label> <input class="form-control" name="condition">
-														<p class="help-block">User's name .</p>
+														<p class="help-block">Condition</p>
 													</div>
 
 
@@ -118,6 +128,11 @@
 												</div>
 												<!-- /.col-lg-6 (nested) -->
 												<div class="col-lg-6">
+												
+													<div class="form-group">
+														<label>Decision</label> <input class="form-control" name="decision">
+														<p class="help-block">Decision</p>
+													</div>
 
 
 													<div class="form-group">
@@ -128,9 +143,7 @@
 														<p class="help-block">The next step which the decision will point to</p>
 													</div>
 													 
-													<div class="form-group">
-														<input type="hidden" class="form-control" name="system">		
-													</div>
+
 
 												</div>
 												<!-- /.col-lg-6 (nested) -->
@@ -160,8 +173,8 @@
 												<div class="col-lg-6">
 
 													<div class="form-group">
-														<label>Decision</label> <input class="form-control" name="decision">
-														<p class="help-block">Decision</p>
+														<label>Decision Id</label> <input class="form-control" name="decisionId">
+														<p class="help-block">Decision Id</p>
 													</div>
 
 													<div class="form-group">
@@ -175,19 +188,22 @@
 												</div>
 												<!-- /.col-lg-6 (nested) -->
 												<div class="col-lg-6">
+												
+													<div class="form-group">
+														<label>Decision</label> <input class="form-control" name="decision">
+														<p class="help-block">Decision</p>
+													</div>
 
 
 													<div class="form-group">
-														<label for="select">Next Step</label>
+														<label for="select">Next Step Id</label>
 														<select id="" class="form-control mySelect" name="nextStep">
-															<option>--Choose next step--</option>
+															<option value="--">--</option>
 														</select>
 														<p class="help-block">The next step which the decision will point to</p>
 													</div>
-													
-													<div class="form-group">
-														<input type="hidden" class="form-control" name="system">
-													</div>
+													 
+
 
 												</div>
 												<!-- /.col-lg-6 (nested) -->
@@ -230,7 +246,7 @@
 	</div>
 	<!-- /#wrapper -->
 
-	<script src="/Workflow/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath }/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
 	<script>
 	var ajaxFlag = true;
@@ -243,11 +259,11 @@
 					
 							if(ajaxFlag){
 								
-						        $.ajax({url: "/Workflow/workflow/getWorkflow", success: function(steps){
+						        $.ajax({url: "${pageContext.request.contextPath }/workflow/workflow/<c:out value="${workflowVersion}"/>", success: function(steps){
 						        	ajaxFlag = false;
 									$.each(steps, function(i, items) {
 
-										$(".mySelect").append("<option value='" + steps[i].step_id + "'>" + steps[i].step_id +" - "+ steps[i].step_name + "</option>");
+										$(".mySelect").append("<option value='" + steps[i].id + "'>" + steps[i].stepId +" - "+ steps[i].stepName + "</option>");
 									
 									});
 									

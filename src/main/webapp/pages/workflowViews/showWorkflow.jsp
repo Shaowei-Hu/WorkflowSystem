@@ -25,6 +25,12 @@
 					<!-- /.col-lg-12 -->
 				</div>
 				<!-- /.row -->
+						<div class="form-group">
+									<label for="select">Workflow Version:</label>
+									<select id="versionSelect" class="form-control mySelect" name="nextStep">
+												<option value="--">--</option>
+									</select>
+						</div>
 		<button id="plus" type="button" class="btn btn-default">
 			<span class="glyphicon glyphicon-plus"></span>
 		</button>
@@ -42,11 +48,12 @@
 					<th>Step Name</th>
 					<th>Service</th>
 					<th>Phase</th>
+					<th>Authority</th>
 					<th>Decision</th>
 					<th>Next Step Id</th>
 					<th>Condition</th>
 					
-					<th>Authority</th>
+					
 				</tr>
 			</thead>
 			<tbody>
@@ -59,11 +66,12 @@
 					<th>Step Name</th>
 					<th>Service</th>
 					<th>Phase</th>
+					<th>Authority</th>
 					<th>Decision</th>
 					<th>Next Step Id</th>
 					<th>Condition</th>
 					
-					<th>Authority</th>
+					
 				</tr>
 			</tfoot>
 		</table>
@@ -74,48 +82,66 @@
 
 </body>
 
-	<script src="/Workflow/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
-	<script>
+<script>
 		
+    $.ajax({url: "${pageContext.request.contextPath }/workflow/workflowVersion", success: function(versions){
+		$.each(versions, function(i, items) {
+			//		alert(steps[i].stepId);
+			$("#versionSelect").append("<option value='" + versions[i] + "'>" + versions[i] + "</option>");
+			
+		});
+	
+    }});
+    
+    $("#versionSelect").change(selectChange);
 
 		var stepIdFlag = "";
 		
-        $.ajax({url: "/Workflow/workflow/getWorkflow", success: function(steps){
-			$.each(steps, function(i, items) {
-				//		alert(steps[i].stepId);
-				if (stepIdFlag != steps[i].step_id) {
-					$("tbody").append(
-							"<tr class='step" + steps[i].step_id
-									+ " rowClickable' onclick='myToggle(" + steps[i].step_id
-									+ ")'><td><span class='caret'></span></td><td>"
-									+ steps[i].step_id + "</td><td>"
-									+ steps[i].step_name + "</td><td>"
-									+ steps[i].service
-									+ "</td><td>"+steps[i].phase+"</td><td></td><td></td><td></td><td></td></tr>");
-					$("tbody").append(
-							"<tr class='decision" + parseInt(steps[i].step_id)
-									+ "'><td></td><td></td><td></td><td></td><td></td><td>"
-									+ steps[i].decision + "</td><td>"
-									+ steps[i].next_step_id + "</td><td>"
-									+ steps[i].condition + "</td><td>"
-									+ steps[i].autority + "</td></tr>");
-				} else {
-					$("tbody").append(
-							"<tr class='decision" + parseInt(steps[i].step_id)
-							+ "'><td></td><td></td><td></td><td></td><td></td><td>"
-							+ steps[i].decision + "</td><td>"
-							+ steps[i].next_step_id + "</td><td>"
-							+ steps[i].condition + "</td><td>"
-							+ steps[i].autority + "</td></tr>");
-				}
-				stepIdFlag = steps[i].step_id;
-				//		$("tbody").append("<tr><td>"+steps[i].stepId+"</td><td>"+steps[i].stepName+"</td><td>"+steps[i].phase+"</td><td>"+steps[i].decision+"</td><td>"+steps[i].condition+"</td><td>"+steps[i].intervenor+"</td></tr>");
-			});
+		function selectChange(){
+			$("tbody").empty();
+			var version = $('#versionSelect').find(":selected").text();
+			if("--"!=version)
+				getWorkflowByVersion(version);
+		}
 		
-        }});
+		function getWorkflowByVersion(version){
+	        $.ajax({url: "${pageContext.request.contextPath }/workflow/workflow/"+version, success: function(stepAdvanceds){
+				$.each(stepAdvanceds, function(i, items) {
+					//		alert(steps[i].stepId);
+					
+						$("tbody").append(
+								"<tr class='step" + stepAdvanceds[i].stepId
+										+ " rowClickable' onclick='myToggle(" + stepAdvanceds[i].stepId
+										+ ")'><td><span class='caret'></span></td><td>"
+										+ stepAdvanceds[i].stepId + "</td><td>"
+										+ stepAdvanceds[i].stepName + "</td><td>"
+										+ stepAdvanceds[i].service+ "</td><td>"
+										+ stepAdvanceds[i].phase + "</td></td>"
+										+ stepAdvanceds[i].autority + "</td><td></td><td></td><td></td><td></td></tr>");
+						var decisionsList = stepAdvanceds[i].decisions;
+						$.each(decisionsList, function(j, items){
+							$("tbody").append(
+									"<tr class='decision" + parseInt(stepAdvanceds[i].stepId)
+											+ "'><td></td><td></td><td></td><td></td><td></td><td></td><td>"
+											+ decisionsList[j].decision + "</td><td>"
+											+ decisionsList[j].nextStepNameId + "</td><td>"
+											+ decisionsList[j].condition + "</td><tr>");
+						});
+						
+					
 
-		$("tr[class*=step]").css("background-color", "rgb(116, 116, 116)");
+
+//					stepIdFlag = steps[i].step_id;
+					//		$("tbody").append("<tr><td>"+steps[i].stepId+"</td><td>"+steps[i].stepName+"</td><td>"+steps[i].phase+"</td><td>"+steps[i].decision+"</td><td>"+steps[i].condition+"</td><td>"+steps[i].intervenor+"</td></tr>");
+				});
+			
+	        }});
+		}
+		
+
+
+		$("tr[class*=decision]").css("background-color", "rgb(116, 116, 16)");
 		
 		$("#plus").click(function(){
 			$("tr[class*=decision]").show();
