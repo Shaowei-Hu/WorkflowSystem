@@ -68,4 +68,9 @@ public class RoleService {
 	public Role getRoleWithPrivilege(String id){
 		return roleRepository.getRoleWithPrivilege(Integer.parseInt(id));
 	}
+	
+	public boolean deleteRole(String id){
+		roleRepository.delete(Integer.parseInt(id));
+		return true;
+	}
 }

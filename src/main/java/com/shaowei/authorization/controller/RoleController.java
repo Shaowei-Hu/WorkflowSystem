@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,14 +26,15 @@ public class RoleController {
 	RoleService roleService;
 	
 	@RequestMapping(value="/role", method=RequestMethod.POST)
-	public String addRole(@RequestBody RoleDto roleDto){
+	public ResponseEntity<Object> addRole(@RequestBody RoleDto roleDto){
 		roleService.addRole(roleDto);
-		return "adminViews/addRole";
+		return new ResponseEntity<Object>("OK", HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value="/role", method=RequestMethod.PUT)
-	public void updateRole(@RequestBody RoleDto roleDto){
+	public ResponseEntity<Object> updateRole(@RequestBody RoleDto roleDto){
 		roleService.updateRole(roleDto);
+		return new ResponseEntity<Object>("OK", HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/role", method=RequestMethod.GET)
@@ -42,6 +45,12 @@ public class RoleController {
 	@RequestMapping(value="/role/{id}", method=RequestMethod.GET)
 	public @ResponseBody Role getRole(@PathVariable String id){
 		return roleService.getRoleWithPrivilege(id);
+	}
+	
+	@RequestMapping(value="/role/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Object> deleteRole(@PathVariable String id){
+		roleService.deleteRole(id);
+		return new ResponseEntity<Object>(id, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/addRolePage", method=RequestMethod.GET)
@@ -58,6 +67,17 @@ public class RoleController {
 	public String showRolePage(@PathVariable String id, Model model){
 		model.addAttribute("roleId", id);
 		return "adminViews/showRole";
+	}
+	
+	@RequestMapping(value="/updateAllRolePage", method=RequestMethod.GET)
+	public String updateAllRolePage(){
+		return "adminViews/updateAllRole";
+	}
+	
+	@RequestMapping(value="/updateRolePage/{id}", method=RequestMethod.GET)
+	public String updateRolePage(@PathVariable String id, Model model){
+		model.addAttribute("roleId", id);
+		return "adminViews/updateRole";
 	}
 
 }

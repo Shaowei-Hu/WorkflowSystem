@@ -97,6 +97,9 @@
 										
 										<div class="col-lg-2">
 										<div class="col-lg-offset-5">
+											<button type="button" class="btn btn-info btn-md" id="addButton" style="margin-top: 25px;">>></button>
+											<br>
+											<button type="button" class="btn btn-info btn-md" id="removeButton" style="margin-top: 10px;"><<</button>
 										</div>
 										</div>
 										
@@ -138,6 +141,8 @@
 				<div class="row">
 					<div class="col-lg-12 text-center">
 
+						<button type="button" class="btn btn-primary btn-lg" id="submitButton">Submit Button</button>
+
 					</div>
 				</div>
 				<br>
@@ -153,7 +158,50 @@
 
 	<script>
 		$(document).ready(function() {
+			function addRole(){
+				var roleId = $("#roleId").val();	
+				var roleName = $("#roleName").val();				
+				var description = $("#description").val();
+				
+				var privileges = new Array(); 
+				$("#currentPrivileges > option").each(function(){
+		            var value = $(this).val();
+		            privileges.push(value);
+		        });
+				var role = {"id" : roleId, "roleName" : roleName, "description" : description, "privilegesId" : privileges};
+
+ 				$.ajax({
+	 					headers: { 
+	 				        'Accept': 'application/json',
+	 				        'Content-Type': 'application/json' 
+	 				    },
+	 				   dataType: 'json',
+					   url: '${pageContext.request.contextPath }/authorization/role',
+					   type: 'PUT',
+					   data: JSON.stringify(role),
+					   success: function(response) {
+							
+					   },
+	 				   error: function(e) {
+	 					    console.log(e);
+						},
+					});
+
+			};
 			
+			function addRemove(){
+			    $("#addButton").click(function(){
+			        $("#allPrivileges > option:selected").each(function(){
+			            $(this).remove().appendTo("#currentPrivileges").attr('selected', false);
+			        });
+			    });
+
+			    $("#removeButton").click(function(){
+			        $("#currentPrivileges > option:selected").each(function(){
+			            $(this).remove().appendTo("#allPrivileges").attr('selected', false);
+			        });
+			    });
+			}
 			
 			function initPrivileges(){
 				 $.ajax({url: "${pageContext.request.contextPath }/authorization/privilege", success: function(privileges){
@@ -182,7 +230,12 @@
 			
 			
 			function init(){
+				$("#submitButton").click(function(){
+					addRole();
+				});
 				initPrivileges();
+				addRemove();
+
 			}
 			
 			init();

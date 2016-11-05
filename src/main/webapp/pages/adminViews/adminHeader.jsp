@@ -23,24 +23,18 @@
 						<ul class="nav nav-second-level">
 							<li><a href="${pageContext.request.contextPath }/workflow/getWorkflowTable"><i class="glyphicon glyphicon-random"></i> Workflow</a></li>
 							<li><a href="${pageContext.request.contextPath }/workflow/updateWorkflow"><i class="glyphicon glyphicon-list-alt"></i> Steps</a></li>
-							<li><a href="${pageContext.request.contextPath }/workflow/createWorkflowPage"><i class="fa fa-plus fa-fw"></i> Create Workflow</a></li>
+							<li><a href="${pageContext.request.contextPath }/workflow/createWorkflowPage"><i class="fa fa-plus"></i> Create Workflow</a></li>
 						</ul>
 					</li>
 
-					<li><a href="getMyInformation.action"><i class="fa fa-plus fa-fw"></i> Create<span class="fa arrow"></span></a>
-						<ul class="nav nav-second-level">
-							<li><a href="document"><i class="fa fa-university"></i> Document</a></li>
-							<li><a href="openCreationTeacher.action"><i class="fa fa-user"></i> Teacher</a></li>
-						</ul>
-					</li>
 
 					<li><a href="getMyInformation.action"><i class="fa fa-edit fa-fw"></i> Authorization<span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
 							<li><a href="${pageContext.request.contextPath }/authorization/allPrivilegePage"><i class="fa fa-university"></i> Privileges</a></li>
-							<li><a href="${pageContext.request.contextPath }/authorization/addPrivilegePage"><i class="fa fa-user"></i> AddPrivilege</a></li>
-							
+							<li><a href="${pageContext.request.contextPath }/authorization/addPrivilegePage"><i class="fa fa-user"></i> AddPrivilege</a></li>							
 							<li><a href="${pageContext.request.contextPath }/authorization/getAllRolePage"><i class="fa fa-user"></i> Roles</a></li>
-							<li><a href="${pageContext.request.contextPath }/authorization/addRolePage"><i class="fa fa-user"></i> AddRole</a></li>
+							<li><a href="${pageContext.request.contextPath }/authorization/addRolePage"><i class="fa fa-plus"></i> CreateRole</a></li>
+							<li><a href="${pageContext.request.contextPath }/authorization/updateAllRolePage"><i class="fa fa-user"></i> UpdateRole</a></li>
 						</ul>
 					</li>
 					
