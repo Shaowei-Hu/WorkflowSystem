@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,9 +26,9 @@ public class Role implements Serializable{
 	private int id;
 	
 	@Column(name="ROLE_NAME",length=32)
-	private String privilegeName;
+	private String roleName;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="AUTHORIZ_ROLE_PRIVILEGE", joinColumns={@JoinColumn(name="ROLE_ID")}, inverseJoinColumns={@JoinColumn(name="PRIVILEGE_ID")})
 	private List<Privilege> privileges;
 	
@@ -42,13 +43,15 @@ public class Role implements Serializable{
 		this.id = id;
 	}
 
-	public String getPrivilegeName() {
-		return privilegeName;
+
+	public String getRoleName() {
+		return roleName;
 	}
 
-	public void setPrivilegeName(String privilegeName) {
-		this.privilegeName = privilegeName;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
+
 
 	public List<Privilege> getPrivileges() {
 		return privileges;

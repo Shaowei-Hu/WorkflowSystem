@@ -22,5 +22,9 @@ public class PrivilegeService {
 		privilegeRepository.add(privilege);
 		return true;
 	}
+	
+	public Privilege getPrivilege(int id){
+		return privilegeRepository.get(id);
+	}
 
 }

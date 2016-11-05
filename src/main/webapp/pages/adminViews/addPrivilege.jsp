@@ -143,7 +143,6 @@
 					   type: 'POST',
 					   data: JSON.stringify(privilege),
 					   success: function(response) {
-
 					   }
 					});
 //				$.post('${pageContext.request.contextPath }/authorization/privilege', privilege);

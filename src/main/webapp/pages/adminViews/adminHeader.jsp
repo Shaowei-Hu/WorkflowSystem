@@ -38,6 +38,9 @@
 						<ul class="nav nav-second-level">
 							<li><a href="${pageContext.request.contextPath }/authorization/allPrivilegePage"><i class="fa fa-university"></i> Privileges</a></li>
 							<li><a href="${pageContext.request.contextPath }/authorization/addPrivilegePage"><i class="fa fa-user"></i> AddPrivilege</a></li>
+							
+							<li><a href="${pageContext.request.contextPath }/authorization/getAllRolePage"><i class="fa fa-user"></i> Roles</a></li>
+							<li><a href="${pageContext.request.contextPath }/authorization/addRolePage"><i class="fa fa-user"></i> AddRole</a></li>
 						</ul>
 					</li>
 					

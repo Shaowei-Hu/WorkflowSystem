@@ -41,8 +41,7 @@
 									<thead>
 										<tr>
 											<th>ID</th>
-											<th>Privilege</th>
-											<th>Parent</th>
+											<th>Role</th>
 											<th>Description</th>
 										</tr>
 									</thead>
@@ -90,34 +89,42 @@
     
 	function init(){
 
-			getAllPrivileges();
-		
+			getAllRoles();
 		
 	};
 
 	function initClickable(){
-		
+		var rows = document.getElementsByTagName("tr");
+
+		for(var i=0; i<rows.length; i++){
+			if(rows[i].className.indexOf("rowClickable")!==-1){
+				rows[i].onclick = clickRow;
+			}
+		}		
 	}
 
 	function clickRow(event){
-
+		var thisElement = event.srcElement || event.target;
+		var id = $(thisElement).parent().find(".idCell").text();
+		window.location.href="${pageContext.request.contextPath }/authorization/showRolePage/"+id;
 	}
 
-	function getAllPrivileges(){
-        $.ajax({url: '${pageContext.request.contextPath }/authorization/privilege', type: 'GET', success: function(privileges){
+	function getAllRoles(){
+        $.ajax({url: '${pageContext.request.contextPath }/authorization/role', type: 'GET', success: function(roles){
         	$("tbody").empty();
-			$.each(privileges, function(i, item) {
+			$.each(roles, function(i, item) {
 
 					$("tbody").append(
-							"<tr><td>"+ item.id + "</td><td>"
-									+ item.privilegeName + "</td><td>"
-									+ item.parentPrivilege + "</td><td>"
+							"<tr class='rowClickable'><td class='idCell'>"+ item.id + "</td><td>"
+									+ item.roleName + "</td><td>"
 									+ item.description + "</td></tr>");
 			});
 			
 	        $('#dataTables').DataTable({
                 responsive: true
         	});
+	        
+			initClickable();
 		
         }});
 	}	
