@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +23,9 @@ public class PrivilegeController {
 	PrivilegeService privilegeService;
 	
 	@RequestMapping(value="/privilege", method=RequestMethod.POST)
-	public String addPrivilege(@RequestBody Privilege privilege){
+	public ResponseEntity<Object> addPrivilege(@RequestBody Privilege privilege){
 		privilegeService.addPrivilege(privilege);
-		return "adminViews/showPrivilege";
+		return new ResponseEntity<Object>("OK", HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value="/privilege", method=RequestMethod.GET)

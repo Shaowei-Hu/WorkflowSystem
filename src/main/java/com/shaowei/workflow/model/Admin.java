@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 
 @Entity(name="WKF_ADMIN")
 public class Admin implements Serializable{
@@ -42,6 +44,7 @@ public class Admin implements Serializable{
 	public void setAdminName(String adminName) {
 		this.adminName = adminName;
 	}
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
