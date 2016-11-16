@@ -28,7 +28,8 @@ public class Role implements Serializable{
 	@Column(name="ROLE_NAME",length=32)
 	private String roleName;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name="AUTHORIZ_ROLE_PRIVILEGE", joinColumns={@JoinColumn(name="ROLE_ID")}, inverseJoinColumns={@JoinColumn(name="PRIVILEGE_ID")})
 	private List<Privilege> privileges;
 	

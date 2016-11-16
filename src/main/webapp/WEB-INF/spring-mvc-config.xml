@@ -9,7 +9,18 @@
         http://www.springframework.org/schema/context/spring-context.xsd ">
 
 	<context:component-scan base-package="com.shaowei.workflow.controller, com.shaowei.authorization.controller" />
-	<mvc:annotation-driven />
+
+	<mvc:annotation-driven>
+	
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper">
+					<bean class="com.shaowei.workflow.util.HibernateAwareObjectMapper" />
+				</property>
+			</bean>
+		</mvc:message-converters>
+
+	</mvc:annotation-driven>
 
 	<mvc:resources mapping="/scriptLibrary/**" location="/scriptLibrary/" />
 	<mvc:resources mapping="/styleSheet/**" location="/styleSheet/" />
@@ -30,6 +41,9 @@
 			</props>
 		</property>
 	</bean>
+	
+	
+
 
 	<!-- <bean name="login" class="com.shaowei.workflow.controller.Login"></bean> -->
 	<!-- <bean name="create" class="com.shaowei.workflow.controller.UserController"></bean> <bean name="document" class="com.shaowei.workflow.controller.Document"></bean> -->
