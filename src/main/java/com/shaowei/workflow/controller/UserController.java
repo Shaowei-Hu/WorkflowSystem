@@ -5,14 +5,19 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shaowei.workflow.dto.KeyValue;
+import com.shaowei.workflow.dto.RequestObject;
 import com.shaowei.workflow.exception.CustomGenericException;
 import com.shaowei.workflow.model.User;
 import com.shaowei.workflow.service.DocumentService;
@@ -62,7 +67,22 @@ public class UserController {
 		return userService.getAllUsersKeyValue();
 	}
 	
+	@RequestMapping(value="/userRole/{userId}", method = RequestMethod.GET)
+	public @ResponseBody User getUserRole(@PathVariable String userId){
+		return userService.getUserWithRole(userId);
+	}
 	
+	@RequestMapping(value="/userRole", method = RequestMethod.PUT)
+	public ResponseEntity<Object> updateUserRole(@RequestBody RequestObject requestObject){
+		userService.updateUserWithRole(requestObject);
+		return new ResponseEntity<Object>("OK", HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/userRolePage/{userId}", method = RequestMethod.GET)
+	public String updateUserRolePage(@PathVariable String userId, Model model){
+		model.addAttribute("userId", userId);
+		return "adminViews/updateUserRole";
+	}
 	
 	
 }

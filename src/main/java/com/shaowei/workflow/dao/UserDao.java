@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -54,6 +55,16 @@ public class UserDao extends BaseDao<User>{
 	
 	public List<KeyValue> getAllUserKeyValue(){
 		return userMapper.getAllUsers();
+	}
+	
+	public User getUserWithRole(int id){
+		Session session = super.getHibernateTemplate().getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		User user = (User) session.get(User.class, id);
+		Hibernate.initialize(user.getRoles());	
+		session.getTransaction().commit();
+		return user;
+
 	}
 
 }

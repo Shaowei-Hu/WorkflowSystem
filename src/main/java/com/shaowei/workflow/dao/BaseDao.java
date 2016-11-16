@@ -68,5 +68,10 @@ public class BaseDao<T extends Serializable> extends HibernateDaoSupport impleme
 		getHibernateTemplate().save(t);
 		
 	}
+	
+	public T load(int id) {
+		
+		return getHibernateTemplate().load(type, id);
+	}
 
 }

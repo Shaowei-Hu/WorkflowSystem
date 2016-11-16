@@ -1,13 +1,19 @@
 package com.shaowei.workflow.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.shaowei.authorization.domain.Role;
+import com.shaowei.authorization.serivce.RoleService;
 import com.shaowei.workflow.dao.UserDao;
 import com.shaowei.workflow.dto.KeyValue;
+import com.shaowei.workflow.dto.RequestObject;
 import com.shaowei.workflow.model.User;
 
 @Service
@@ -17,6 +23,8 @@ public class UserService {
 	private UserDao userDao;
 	@Resource
 	private WorkflowService workflowService;
+	@Resource
+	private RoleService roleService;
 	
 	public User verifyExistence(String name, String password) {
 		User user = userDao.getUserByName(name);
@@ -126,6 +134,24 @@ public class UserService {
 	
 	public List<KeyValue> getAllUsersKeyValue(){
 		return userDao.getAllUserKeyValue();
+	}
+	
+	public User getUserWithRole(String id){
+		return userDao.getUserWithRole(Integer.parseInt(id));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public boolean updateUserWithRole(RequestObject requestObject){
+		User user = userDao.getUserWithRole(Integer.parseInt((String)requestObject.getRequestObject().get("userId")));
+//		User user = null;
+		Set<Role> roles = new HashSet<>();
+		for(String r : (ArrayList<String>)requestObject.getRequestObject().get("rolesId")){
+			roles.add(roleService.getRole(r));
+			System.out.println(r);
+		}
+		user.setRoles(roles);
+		userDao.update(user);
+		return true;
 	}
 
 }

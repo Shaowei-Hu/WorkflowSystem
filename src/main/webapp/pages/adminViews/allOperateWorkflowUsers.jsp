@@ -49,6 +49,7 @@
 											<th>Job</th>
 											<th>Manager ID -- Name</th>
 											<th>Partner ID -- Name</th>
+											<th>Roles</th>
 											<th>Update</th>
 											<th>Delete</th>
 											<th class="hideUrl"></th>
@@ -65,6 +66,7 @@
 												<td class="desc"><c:out value="${item.job}" /></td>
 												<td class="desc"><c:out value="${item.manager.userId} -- ${item.manager.userName}" /></td>
 												<td class="desc"><c:out value="${item.partner.userId} -- ${item.partner.userName}" /></td>
+												<td class="desc"><a href="${pageContext.request.contextPath }/user/userRolePage/${item.userId}"><i class="glyphicon glyphicon-tower"></i></a></td>
 												<td class="desc"><a href="update/${item.userId}"><i class="fa fa-wrench fa-fw"></i></a></td>
 												<td class="desc"><a onclick="return confirm('Are you sure to delete this user?');" href="delete/${item.userId}"><i class="fa fa-trash fa-fw"></i></a></td>
 												<td class="hideUrl">show/${item.userId}</td>

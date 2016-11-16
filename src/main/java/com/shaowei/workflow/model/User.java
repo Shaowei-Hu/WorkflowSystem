@@ -69,7 +69,7 @@ public class User implements Serializable{
 	@Transient
 	private String capacity;
 	
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="wkf_user_role", joinColumns={@JoinColumn(name="USER_ID")}, inverseJoinColumns={@JoinColumn(name="ROLE_ID")})
 	private Set<Role> roles;
 	
