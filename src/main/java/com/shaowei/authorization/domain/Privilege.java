@@ -57,6 +57,10 @@ public class Privilege implements Serializable{
 	public void setParentPrivilege(Privilege parentPrivilege) {
 		this.parentPrivilege = parentPrivilege;
 	}
+	@Override
+	public String toString() {
+		return "Privilege [id=" + id + ", parentPrivilege=" + parentPrivilege + ", privilegeName=" + privilegeName + ", description=" + description + "]";
+	}
 
 	
 	

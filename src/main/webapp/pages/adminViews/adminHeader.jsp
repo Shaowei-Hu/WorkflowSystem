@@ -31,7 +31,8 @@
 					<li><a href="getMyInformation.action"><i class="fa fa-edit fa-fw"></i> Authorization<span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
 							<li><a href="${pageContext.request.contextPath }/authorization/allPrivilegePage"><i class="fa fa-university"></i> Privileges</a></li>
-							<li><a href="${pageContext.request.contextPath }/authorization/addPrivilegePage"><i class="fa fa-user"></i> AddPrivilege</a></li>							
+							<li><a href="${pageContext.request.contextPath }/authorization/addPrivilegePage"><i class="fa fa-user"></i> AddPrivilege</a></li>
+							<li><a href="${pageContext.request.contextPath }/authorization/updateAllPrivilegePage"><i class="fa fa-user"></i> UpdatePrivilege</a></li>							
 							<li><a href="${pageContext.request.contextPath }/authorization/getAllRolePage"><i class="fa fa-user"></i> Roles</a></li>
 							<li><a href="${pageContext.request.contextPath }/authorization/addRolePage"><i class="fa fa-plus"></i> CreateRole</a></li>
 							<li><a href="${pageContext.request.contextPath }/authorization/updateAllRolePage"><i class="fa fa-user"></i> UpdateRole</a></li>

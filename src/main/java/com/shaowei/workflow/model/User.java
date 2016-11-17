@@ -16,8 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.shaowei.authorization.domain.Role;
 
 
@@ -121,6 +120,7 @@ public class User implements Serializable{
 	public User getManager() {
 		return manager;
 	}
+
 	public void setManager(User manager) {
 		this.manager = manager;
 	}

@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Insert title here</title>
-
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,36 +41,13 @@
 									<thead>
 										<tr>
 											<th>ID</th>
-											<th>User Name</th>
-											<th>Site</th>
-											<th>Region</th>
-											<th>Agency</th>
-											<th>Job</th>
-											<th>Manager ID -- Name</th>
-											<th>Partner ID -- Name</th>
-											<th>Roles</th>
+											<th>Privilege</th>
+											<th>Description</th>
 											<th>Update</th>
 											<th>Delete</th>
-											<th class="hideUrl"></th>
 										</tr>
 									</thead>
-									<tbody>
-										<c:forEach var="item" items="${allUsers}">
-											<tr class="rowClickable">
-												<td class="idcell"><c:out value="${item.userId}" /></td>
-												<td class="username"><c:out value="${item.userName}" /></td>
-												<td class="desc"><c:out value="${item.site}" /></td>
-												<td class="desc"><c:out value="${item.region}" /></td>
-												<td class="desc"><c:out value="${item.agency}" /></td>
-												<td class="desc"><c:out value="${item.job}" /></td>
-												<td class="desc"><c:out value="${item.manager.userId} -- ${item.manager.userName}" /></td>
-												<td class="desc"><c:out value="${item.partner.userId} -- ${item.partner.userName}" /></td>
-												<td class="desc"><a href="${pageContext.request.contextPath }/user/userRolePage/${item.userId}"><i class="fa fa-key fa-fw"></i></a></td>
-												<td class="desc"><a href="update/${item.userId}"><i class="fa fa-wrench fa-fw"></i></a></td>
-												<td class="desc"><a onclick="return confirm('Are you sure to delete this user?');" href="delete/${item.userId}"><i class="fa fa-trash fa-fw"></i></a></td>
-												<td class="hideUrl">show/${item.userId}</td>
-											</tr>
-										</c:forEach>
+									<tbody>	
 									</tbody>
 								</table>
 
@@ -104,36 +80,60 @@
 	<!-- /#wrapper -->
 
 
+
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 	<script>
     $(document).ready(function() {
-        $('#dataTables').DataTable({
+/*         $('#dataTables').DataTable({
                 responsive: true
-        });
+        }); */
     });
     
-		function init(){
-		initClickable();
-		
-	}
+	function init(){
 
-	function initClickable(){
-		var rows = document.getElementsByTagName("tr");
-		for(var i=0; i<rows.length; i++){
-			if(rows[i].className=="rowClickable"){
-				rows[i].onclick = clickRow;
-			}
+			getAllPrivileges();
+		
+	};
+
+
+
+	function getAllPrivileges(){
+        $.ajax({url: '${pageContext.request.contextPath }/authorization/privilege', type: 'GET', success: function(privileges){
+        	$("tbody").empty();
+			$.each(privileges, function(i, item) {
+
+					$("tbody").append(
+							"<tr class='rowClickable'><td class='idCell'>"+ item.id + "</td><td>"
+									+ item.privilegeName + "</td><td>"
+									+ item.description + "</td><td>"
+									+"<a href='${pageContext.request.contextPath }/authorization/updatePrivilegePage/"+item.id+"'><i class='fa fa-wrench fa-fw'></i></a></td>"
+									+"<td><a href='javascript:deleteConfirm("+item.id+")'><i class='fa fa-trash fa-fw'></i></a></td>"
+									+"</tr>");
+			});
+			
+	        $('#dataTables').DataTable({
+                responsive: true
+        	});
+	        		
+        }});
+	}
+	
+	function deleteConfirm(id){
+		if(confirm('Are you sure to delete this user?')){
+			deletePrivilege(id)
 		}
-		
 	}
 
-	function clickRow(event){
-		var thisElement = event.srcElement || event.target;
-		window.location.href = thisElement.parentNode.lastChild.firstChild.nodeValue;
-	}
-
-
-
+    function deletePrivilege(id){
+    	$.ajax({
+    	    url: '${pageContext.request.contextPath }/authorization/privilege/'+id,
+    	    type: 'DELETE',
+    	    success: function(result) {
+    	        alert(id + " has been deleted.");
+    	        window.location.reload();
+    	    }
+    	});
+    }
 
 
 	init();

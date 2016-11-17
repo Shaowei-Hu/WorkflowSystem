@@ -27,7 +27,7 @@ public class RoleService {
 			role.setDescription(roleDto.getDescription());
 			List<Privilege> privileges = new ArrayList<>();
 			for(Integer i : roleDto.getPrivilegesId()){
-				privileges.add(privilegeService.getPrivilege(i));
+				privileges.add(privilegeService.getPrivilege(i.toString()));
 			}
 			role.setPrivileges(privileges);
 			roleRepository.add(role);
@@ -46,7 +46,7 @@ public class RoleService {
 			role.setDescription(roleDto.getDescription());
 			List<Privilege> privileges = new ArrayList<>();
 			for(Integer i : roleDto.getPrivilegesId()){
-				privileges.add(privilegeService.getPrivilege(i));
+				privileges.add(privilegeService.getPrivilege(i.toString()));
 			}
 			role.setPrivileges(privileges);
 			roleRepository.update(role);
