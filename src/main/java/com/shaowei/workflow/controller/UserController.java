@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shaowei.workflow.dto.KeyValue;
+import com.shaowei.workflow.dto.Menu;
 import com.shaowei.workflow.dto.RequestObject;
 import com.shaowei.workflow.exception.CustomGenericException;
 import com.shaowei.workflow.model.User;
@@ -37,6 +38,15 @@ public class UserController {
 		User user = userService.verifyExistence(username, password);
 		if (user != null){
 			request.getSession().setAttribute("user", user);
+			
+			String path = request.getContextPath();
+			@SuppressWarnings("unchecked")
+			List<Menu> menus = (List<Menu>)request.getSession().getAttribute("menu");
+			if(menus==null){
+				menus = userService.getUserMenu(request.getSession().getAttribute("user"), path);
+				request.getSession().setAttribute("menu", menus);
+			} 	
+			
 			return "userViews/userHome";
 		} else
 			throw new CustomGenericException("100", "Login error");
@@ -59,6 +69,7 @@ public class UserController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request) {
 			request.getSession().removeAttribute("user");
+			request.getSession().invalidate();
 			return "../index";
 	}
 	
@@ -82,6 +93,19 @@ public class UserController {
 	public String updateUserRolePage(@PathVariable String userId, Model model){
 		model.addAttribute("userId", userId);
 		return "adminViews/updateUserRole";
+	}
+	
+	@RequestMapping(value="/menu", method = RequestMethod.GET)
+	public @ResponseBody List<Menu> getUserMenu(HttpServletRequest request){
+		
+		String path = request.getContextPath();
+		@SuppressWarnings("unchecked")
+		List<Menu> menus = (List<Menu>)request.getSession().getAttribute("menu");
+		if(menus==null){
+			menus = userService.getUserMenu(request.getSession().getAttribute("user"), path);
+			request.getSession().setAttribute("menu", menus);
+		} 	
+		return menus;
 	}
 	
 	

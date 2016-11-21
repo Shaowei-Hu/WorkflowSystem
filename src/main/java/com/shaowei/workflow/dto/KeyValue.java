@@ -6,6 +6,16 @@ public class KeyValue {
 	private String value;
 	
 	
+	
+	public KeyValue() {
+	}
+	
+	public KeyValue(String keyy, String value) {
+		super();
+		this.keyy = keyy;
+		this.value = value;
+	}
+	
 	public String getValue() {
 		return value;
 	}

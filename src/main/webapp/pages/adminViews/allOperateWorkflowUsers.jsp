@@ -128,8 +128,7 @@
 	}
 
 	function clickRow(event){
-		var thisElement = event.srcElement || event.target;
-		window.location.href = thisElement.parentNode.lastChild.firstChild.nodeValue;
+
 	}
 
 

@@ -1,0 +1,8 @@
+when null point exception, make sure which one is null
+
+
+To be done:
+
+1 Users should be change to work with authorization
+2 Use AOP to do authorization control
+3 Unit test 

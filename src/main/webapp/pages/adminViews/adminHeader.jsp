@@ -9,7 +9,7 @@
 			<div class="sidebar-nav navbar-collapse">
 				<ul class="nav" id="side-menu">
 
-					<li><a href="${pageContext.request.contextPath }/admin/welcome"><i class="fa fa-home fa-fw"></i> Welcome</a></li>
+					<li><a href="${pageContext.request.contextPath }/admin/welcome"><i class="fa fa-home"></i> Welcome</a></li>
 					
 					<li><a href="#"><i class="fa fa-group fa-fw"></i> Users<span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
