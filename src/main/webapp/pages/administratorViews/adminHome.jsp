@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -12,10 +12,10 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Welcome User</title>
-
+<title>Welcome Admin</title>
 
 <jsp:include page="/pages/common/importCss.jsp"></jsp:include>
+ 
 
 </head>
 
@@ -23,26 +23,26 @@
 
 	<div id="wrapper">
 
-		<jsp:include page="/pages/common/commonHeader.jsp"></jsp:include>
+	 <jsp:include page="/pages/common/commonHeader.jsp"></jsp:include>
 
 		<div id="page-wrapper">
 
 		<br>
 		<br>
-				<br>
+		<br>
 		<br>
 
         <!-- Heading Row -->
         <div class="row">
             <div class="col-md-8">
-                <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt="">
+                <img class="img-responsive img-rounded" src="${pageContext.request.contextPath }/images/placeholder900-350.png" alt="">
             </div>
             <!-- /.col-md-8 -->
             <div class="col-md-4">
                 <h1>Business Name or Tagline</h1>
                 <p id="url2forward">${request.url }</p>
-				<p>Hello ${user.userName}</p>
-				<p>Job: ${user.job} </p>
+				<p>${admin.adminName} ${request.info } </p>
+				<p>Your email address: ${admin.email} </p>
                 <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
                 <a class="btn btn-primary btn-lg" href="#">Call to Action!</a>
             </div>

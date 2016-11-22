@@ -55,29 +55,29 @@ public class RoleController {
 	
 	@RequestMapping(value="/addRolePage", method=RequestMethod.GET)
 	public String addRolePage(){
-		return "adminViews/addRole";
+		return "authorizationViews/addRole";
 	}
 	
 	@RequestMapping(value="/getAllRolePage", method=RequestMethod.GET)
 	public String getAllRolePage(){
-		return "adminViews/allRole";
+		return "authorizationViews/allRole";
 	}
 	
 	@RequestMapping(value="/showRolePage/{id}", method=RequestMethod.GET)
 	public String showRolePage(@PathVariable String id, Model model){
 		model.addAttribute("roleId", id);
-		return "adminViews/showRole";
+		return "authorizationViews/showRole";
 	}
 	
 	@RequestMapping(value="/updateAllRolePage", method=RequestMethod.GET)
 	public String updateAllRolePage(){
-		return "adminViews/updateAllRole";
+		return "authorizationViews/updateAllRole";
 	}
 	
 	@RequestMapping(value="/updateRolePage/{id}", method=RequestMethod.GET)
 	public String updateRolePage(@PathVariable String id, Model model){
 		model.addAttribute("roleId", id);
-		return "adminViews/updateRole";
+		return "authorizationViews/updateRole";
 	}
 
 }

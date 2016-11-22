@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -16,7 +16,6 @@
 
 </head>
 <body>
-	<p id="tabIndex" class="hideUrl">${tab}</p>
 	<div id="wrapper">
 
 		<jsp:include page="/pages/common/commonHeader.jsp"></jsp:include>
@@ -30,15 +29,8 @@
 				<!-- /.col-lg-12 -->
 			</div>
 			<!-- /.row -->
-			
 			<div class="row">
 				<div class="col-lg-12">
-					<ul class="nav nav-tabs nav-justified">
-						<li class="h4"><a href="myList"><strong>My Document To Treat</strong></a></li>
-						<li class="h4"><a href="myintervenedList"><strong>My Document intervened</strong></a></li>
-						<li class="h4"><a href="#"><strong>Menu 2</strong></a></li>
-						<li class="h4"><a href="#"><strong>Menu 3</strong></a></li>
-					</ul>
 					<div class="panel panel-default">
 						<div class="panel-heading">DataTables Advanced Tables</div>
 						<!-- /.panel-heading -->
@@ -50,27 +42,35 @@
 									<thead>
 										<tr>
 											<th>ID</th>
-											<th>Client Name</th>
-											<th>Amount</th>
-											<th>Resource</th>
-											<th>Author</th>
-											<th>Responsible</th>
-											<th>Current Step</th>
-											<th>Step time</th>
+											<th>User Name</th>
+											<th>Site</th>
+											<th>Region</th>
+											<th>Agency</th>
+											<th>Job</th>
+											<th>Manager ID -- Name</th>
+											<th>Partner ID -- Name</th>
+											<th>Roles</th>
+											<th>Update</th>
+											<th>Delete</th>
 											<th class="hideUrl"></th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="item" items="${allDocuments}">
+										<c:forEach var="item" items="${allUsers}">
 											<tr class="rowClickable">
-												<td class="idcell"><c:out value="${item.documentId}" /></td>
-												<td class="username"><c:out value="${item.client}" /></td>
-												<td class="desc"><c:out value="${item.amount}" /></td>
-												<td class="desc"><c:out value="${item.resource}" /></td>
-												<td class="desc"><c:out value="${item.author.userName}" /></td>
-												<td class="desc"><c:out value="${item.responsible.userName}" /></td>
-												<td class="desc"><c:out value="${item.currentStep.stepId}-${item.currentStep.stepName}" /></td>
-												<td class="desc"><c:out value="${item.stepDate}" /></td><td class="hideUrl">show/${item.documentId}</td></tr>
+												<td class="idcell"><c:out value="${item.userId}" /></td>
+												<td class="username"><c:out value="${item.userName}" /></td>
+												<td class="desc"><c:out value="${item.site}" /></td>
+												<td class="desc"><c:out value="${item.region}" /></td>
+												<td class="desc"><c:out value="${item.agency}" /></td>
+												<td class="desc"><c:out value="${item.job}" /></td>
+												<td class="desc"><c:out value="${item.manager.userId} -- ${item.manager.userName}" /></td>
+												<td class="desc"><c:out value="${item.partner.userId} -- ${item.partner.userName}" /></td>
+												<td class="desc"><a href="${pageContext.request.contextPath }/user/userRolePage/${item.userId}"><i class="fa fa-key fa-fw"></i></a></td>
+												<td class="desc"><a href="update/${item.userId}"><i class="fa fa-wrench fa-fw"></i></a></td>
+												<td class="desc"><a onclick="return confirm('Are you sure to delete this user?');" href="delete/${item.userId}"><i class="fa fa-trash fa-fw"></i></a></td>
+												<td class="hideUrl">show/${item.userId}</td>
+											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
@@ -100,46 +100,42 @@
 	</div>
 	<!-- /#page-wrapper -->
 
+
 	<!-- /#wrapper -->
 
-	<!-- DataTables JavaScript -->
-<!-- 	<script src="/Workflow/scriptLibrary/datatables/media/js/jquery.dataTables.min.js"></script>
-	<script src="/Workflow/scriptLibrary/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script> -->
 
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 	<script>
-		$(document).ready(function() {
-			$('#dataTables').DataTable({
-				responsive : true
-			});
-			
-			$(".nav-tabs").children().eq($("#tabIndex").text()).addClass("active");
-		});
-
-		function init() {
-			initClickable();
-
-		}
-
-		function initClickable() {
-			var rows = document.getElementsByTagName("tr");
-			for (var i = 0; i < rows.length; i++) {
-				if (rows[i].className == "rowClickable") {
-					rows[i].onclick = clickRow;
-				}
-			}
-
-		}
-
-		function clickRow(event) {
-			var thisElement = event.srcElement || event.target;
-			window.location.href = thisElement.parentNode.lastChild.firstChild.nodeValue;
-			
-		}
-
-		init();
-
+    $(document).ready(function() {
+        $('#dataTables').DataTable({
+                responsive: true
+        });
+    });
+    
+		function init(){
+		initClickable();
 		
-	</script>
+	}
+
+	function initClickable(){
+		var rows = document.getElementsByTagName("tr");
+		for(var i=0; i<rows.length; i++){
+			if(rows[i].className=="rowClickable"){
+				rows[i].onclick = clickRow;
+			}
+		}
+		
+	}
+
+	function clickRow(event){
+
+	}
+
+
+
+
+
+	init();
+    </script>
 </body>
 </html>

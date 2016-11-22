@@ -92,7 +92,7 @@ public class UserController {
 	@RequestMapping(value="/userRolePage/{userId}", method = RequestMethod.GET)
 	public String updateUserRolePage(@PathVariable String userId, Model model){
 		model.addAttribute("userId", userId);
-		return "adminViews/updateUserRole";
+		return "authorizationViews/updateUserRole";
 	}
 	
 	@RequestMapping(value="/menu", method = RequestMethod.GET)

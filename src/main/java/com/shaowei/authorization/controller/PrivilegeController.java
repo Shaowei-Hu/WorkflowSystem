@@ -68,22 +68,22 @@ public class PrivilegeController {
 	
 	@RequestMapping(value="/allPrivilegePage", method=RequestMethod.GET)
 	public String allPrivilegePage(){
-		return "adminViews/showPrivilege";
+		return "authorizationViews/showPrivilege";
 	}
 	
 	@RequestMapping(value="/addPrivilegePage", method=RequestMethod.GET)
 	public String addPrivilegePage(){
-		return "adminViews/addPrivilege";
+		return "authorizationViews/addPrivilege";
 	}
 	
 	@RequestMapping(value="/updateAllPrivilegePage", method=RequestMethod.GET)
 	public String updateAllPrivilegePage(){
-		return "adminViews/updateAllPrivilege";
+		return "authorizationViews/updateAllPrivilege";
 	}
 	
 	@RequestMapping(value="/updatePrivilegePage/{id}", method=RequestMethod.GET)
 	public String updatePrivilegePage(@PathVariable String id, Model model){
 		model.addAttribute("privilegeId", id);
-		return "adminViews/updatePrivilege";
+		return "authorizationViews/updatePrivilege";
 	}
 }

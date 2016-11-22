@@ -12,7 +12,7 @@
 </head>
 <body>
 <div id="wrapper">
-<jsp:include page="../adminViews/adminHeader.jsp"></jsp:include>
+<jsp:include page="/pages/common/commonHeader.jsp"></jsp:include>
 
 <div id="page-wrapper">
 	<div class="container">

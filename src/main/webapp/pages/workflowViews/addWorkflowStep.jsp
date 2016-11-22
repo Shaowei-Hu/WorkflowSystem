@@ -26,7 +26,7 @@
 
 <body>
 
-	<jsp:include page="../adminViews/adminHeader.jsp"></jsp:include>
+	<jsp:include page="/pages/common/commonHeader.jsp"></jsp:include>
 	<div id="wrapper">
 
 		<!-- Navigation -->
