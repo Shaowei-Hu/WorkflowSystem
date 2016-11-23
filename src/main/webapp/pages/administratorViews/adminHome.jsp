@@ -39,7 +39,7 @@
             </div>
             <!-- /.col-md-8 -->
             <div class="col-md-4">
-                <h1>Business Name or Tagline</h1>
+                <h1>Administrator</h1>
                 <p id="url2forward">${request.url }</p>
 				<p>${admin.adminName} ${request.info } </p>
 				<p>Your email address: ${admin.email} </p>
