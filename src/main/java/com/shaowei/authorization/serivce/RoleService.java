@@ -38,9 +38,9 @@ public class RoleService {
 		return true;
 	}
 	
-	public boolean updateRole(RoleDto roleDto){
+	public Role updateRole(RoleDto roleDto){
+		Role role = new Role();
 		try {
-			Role role = new Role();
 			role.setId(roleDto.getId());
 			role.setRoleName(roleDto.getRoleName());
 			role.setDescription(roleDto.getDescription());
@@ -52,9 +52,9 @@ public class RoleService {
 			roleRepository.update(role);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		}
-		return true;
+		return role;
 	}
 	
 	public List<Role> getAllRole(){
