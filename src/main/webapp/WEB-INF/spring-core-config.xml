@@ -119,11 +119,21 @@
 	<aop:config>
 		<aop:pointcut expression="execution(* com.shaowei.workflow.service.AdminService.*(..))" id="adminLogin"/>
 		<aop:pointcut expression="execution(* com.shaowei.workflow.service.DocumentService.transferDocument(..))" id="documentTransaction"/>
+		
+		<aop:pointcut expression="execution(* com.shaowei.workflow.controller.*.showAllUsers(..))" id="securityShowAll"/>
+
 		<aop:advisor advice-ref="transaction" pointcut-ref="documentTransaction"/>
 		<aop:aspect ref="log">
 			<aop:before method="logBefore" pointcut-ref="adminLogin"/>
 			<aop:around method="logAroundLogin" pointcut-ref="adminLogin"/>
 		</aop:aspect>
+		
+		
+		<aop:aspect ref="controllerAOPSecurity">
+			<aop:before method="securityBefore" pointcut-ref="securityShowAll"/>
+			<aop:around method="securityAround" pointcut-ref="securityShowAll"/>
+		</aop:aspect>
+		
 		
 	</aop:config>
 

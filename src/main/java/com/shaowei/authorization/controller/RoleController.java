@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.shaowei.authorization.domain.Role;
 import com.shaowei.authorization.dto.RoleDto;
@@ -26,31 +27,44 @@ public class RoleController {
 	RoleService roleService;
 	
 	@RequestMapping(value="/role", method=RequestMethod.POST)
-	public ResponseEntity<Object> addRole(@RequestBody RoleDto roleDto){
+	public ResponseEntity<Void> addRole(@RequestBody RoleDto roleDto, UriComponentsBuilder ucBuilder){
 		roleService.addRole(roleDto);
-		return new ResponseEntity<Object>("OK", HttpStatus.CREATED);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(ucBuilder.path("/role/{id}").buildAndExpand(roleDto.getId()).toUri());
+		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value="/role", method=RequestMethod.PUT)
-	public ResponseEntity<Object> updateRole(@RequestBody RoleDto roleDto){
-		roleService.updateRole(roleDto);
-		return new ResponseEntity<Object>("OK", HttpStatus.OK);
+	public ResponseEntity<Role> updateRole(@RequestBody RoleDto roleDto){
+		Role currentRole = roleService.updateRole(roleDto);
+		if(currentRole == null){
+			return new ResponseEntity<Role>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Role>(currentRole, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/role", method=RequestMethod.GET)
-	public @ResponseBody List<Role> getAllRole(){
-		return roleService.getAllRole();
+	public ResponseEntity<List<Role>> getAllRole(){
+		List<Role> roles = roleService.getAllRole();
+		if(roles.isEmpty()){
+			return new ResponseEntity<List<Role>>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Role>>(roles, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/role/{id}", method=RequestMethod.GET)
-	public @ResponseBody Role getRole(@PathVariable String id){
-		return roleService.getRoleWithPrivilege(id);
+	public ResponseEntity<Role> getRole(@PathVariable String id){
+		Role role = roleService.getRoleWithPrivilege(id);
+		if(role == null){
+			return new ResponseEntity<Role>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Role>(role, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/role/{id}", method=RequestMethod.DELETE)
-	public ResponseEntity<Object> deleteRole(@PathVariable String id){
+	public ResponseEntity<Role> deleteRole(@PathVariable String id){
 		roleService.deleteRole(id);
-		return new ResponseEntity<Object>(id, HttpStatus.OK);
+		return new ResponseEntity<Role>(HttpStatus.NO_CONTENT);
 	}
 	
 	@RequestMapping(value="/addRolePage", method=RequestMethod.GET)
