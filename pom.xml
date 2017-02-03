@@ -9,7 +9,7 @@
 		<hibernate.version>3.6.0.Final</hibernate.version>
 		<application.version>0.0.1-SNAPSHOT</application.version>
 	</properties>
-	
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.shaowei</groupId>
 	<artifactId>workflow</artifactId>
@@ -17,7 +17,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>workflow Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -48,7 +48,7 @@
 			<artifactId>spring-context</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -60,17 +60,17 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-		
- 		<dependency>
+
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>${org.springframework.version}</version>
 			<exclusions>
-	        	<exclusion>
-	            	<groupId>org.hibernate</groupId>
-	            	<artifactId>hibernate-core</artifactId>
-	        	</exclusion>
-    		</exclusions>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate-core</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -82,6 +82,13 @@
 			<artifactId>spring-beans</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
@@ -126,37 +133,34 @@
 			<version>1.2.3</version>
 		</dependency>
 
-<!-- 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.13</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.codehaus.jackson</groupId> <artifactId>jackson-mapper-asl</artifactId> 
+			<version>1.9.13</version> </dependency> -->
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-hibernate3</artifactId>
 			<version>2.7.3</version>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-core</artifactId>
-		    <version>2.7.3</version>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.7.3</version>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-annotations</artifactId>
-		    <version>2.7.3</version>
-		</dependency>		
-		
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.7.3</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		
+
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
@@ -167,6 +171,14 @@
 			<artifactId>aspectjweaver</artifactId>
 			<version>1.8.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>2.6.0</version>
+			<scope>test</scope>
+		</dependency>
+		
 	</dependencies>
 
 	<profiles>
