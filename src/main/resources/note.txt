@@ -6,3 +6,11 @@ To be done:
 1 Users should be change to work with authorization
 2 Use AOP to do authorization control
 3 Unit test 
+
+
+
+
+Clone database, one for functional test, one for unit integration test:
+create database project_workflow_test;
+quit;
+mysqldump -u root -p project | mysql -u root -p project_workflow_test
