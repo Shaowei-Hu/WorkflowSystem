@@ -74,11 +74,22 @@ public class UserServiceIntTest {
 	
 	@Test
 	public void testAddUpdateDeleteUser() {
-		userService.addUser(newUser);
+		Integer generatedId = userService.addUser(newUser);
 		List<User> users = userService.getAllUsers();
 		
 		assertThat(users).isNotEmpty().areExactly(10, ALL);
 		assertThat(users).extracting("userName", String.class).contains("NewUser4Test");
+		
+		
+		User user = userService.getUserById(generatedId);
+		assertThat(user.getJob()).isEqualTo("UserTest");
+		
+		user.setJob("NewJob");
+		
+		userService.updateUser(user);
+		user = null;
+		user = userService.getUserById(generatedId);
+		assertThat(user.getJob()).isEqualTo("NewJob");
 		
 		
 		

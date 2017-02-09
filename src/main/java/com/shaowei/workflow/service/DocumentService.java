@@ -10,7 +10,7 @@ import com.shaowei.workflow.model.User;
 
 public interface DocumentService {
 	
-	public boolean addDocument(Document document, User author);
+	public Integer addDocument(Document document, User author);
 	public Document getFullDocument(int documentId);
 	public List<Document> getAllDocuments();
 	public boolean addComment(Comment comment, User author);

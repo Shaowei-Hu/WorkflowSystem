@@ -33,7 +33,8 @@ public class DocumentServiceImpl implements DocumentService{
 	@Resource
 	private HistoryService historyService;
 
-	public boolean addDocument(Document document, User author) {
+	public Integer addDocument(Document document, User author) {
+		Integer generatedId;
 		try {
 			String amount = document.getAmountSt();
 			amount = amount.replaceAll(",", "");
@@ -47,12 +48,12 @@ public class DocumentServiceImpl implements DocumentService{
 			document.setCurrentStep(currentStep);
 			document.setStepDate(new Date());
 
-			documentDao.add(document);
+			generatedId = (Integer) documentDao.add(document);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return -1;
 		}
-		return true;
+		return generatedId;
 	}
 	
 	public Document getFullDocument(int documentId){

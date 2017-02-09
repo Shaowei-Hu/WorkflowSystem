@@ -41,7 +41,8 @@ public class UserService {
 			return null;
 	}
 
-	public boolean addUser(User user) {
+	public Integer addUser(User user) {
+		Integer generatedId;
 		try {
 			user.setUserPassword("initial");
 			String managerIdName = user.getManagerId();
@@ -61,11 +62,11 @@ public class UserService {
 			}
 			
 
-			userDao.add(user);
+			generatedId = (Integer) userDao.add(user);
 		} catch (Exception e) {
-			return false;
+			return -1;
 		}
-		return true;
+		return generatedId;
 	}
 	
 	public List<User> getAllUsers(){

@@ -28,8 +28,8 @@ public class BaseDao<T extends Serializable> extends HibernateDaoSupport impleme
 	}
 
 	
-	public void add(T t) {
-		getHibernateTemplate().save(t);
+	public Serializable add(T t) {
+		return getHibernateTemplate().save(t);
 		
 	}
 
