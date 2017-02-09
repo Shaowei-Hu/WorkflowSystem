@@ -40,7 +40,7 @@ public class DocumentController {
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public String createDocument(Document document, HttpServletRequest request, Model model){
 		User author = (User) request.getSession().getAttribute("user");
-		if(documentService.addDocument(document, author)){
+		if(documentService.addDocument(document, author)>0){
 			model.addAttribute("document", document);
 			model.addAttribute("comment", new Comment());
 			model.addAttribute("decision", new Decision());

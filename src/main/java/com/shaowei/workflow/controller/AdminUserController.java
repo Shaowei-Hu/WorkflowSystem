@@ -28,7 +28,7 @@ public class AdminUserController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createUser(User user, Model model) {
-		if (userService.addUser(user)) {
+		if (userService.addUser(user)>0) {
 			return "administratorViews/adminHome";
 		} else
 			return "error";

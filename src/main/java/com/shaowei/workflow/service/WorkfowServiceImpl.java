@@ -52,7 +52,8 @@ public class WorkfowServiceImpl implements WorkflowService{
 	}
 
 	@Override
-	public boolean addWorkflowStep(String workflowVersion, StepSimple stepSimple, String[] decision, String[] decisionId,String[] condition, String[] nextStepId) {
+	public Integer addWorkflowStep(String workflowVersion, StepSimple stepSimple, String[] decision, String[] decisionId,String[] condition, String[] nextStepId) {
+		Integer generatedId;
 		List<StepDecision> decisions = new ArrayList<>();
 		
 		
@@ -88,13 +89,13 @@ public class WorkfowServiceImpl implements WorkflowService{
 		step.setDecisions(decisions);
 
 		try {
-			stepAdvancedRepository.add(step);
+			generatedId = (Integer) stepAdvancedRepository.add(step);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return -1;
 		}
 		
-		return true;
+		return generatedId;
 	}
 
 	@Override

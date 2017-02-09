@@ -41,7 +41,7 @@
 		<property name="userName" value="NewUser4Test"></property>
 		<property name="userPassword" value="initial"></property>
 		<property name="job" value="UserTest"></property>
-		<property name="userId" value="12"></property>
+		<!-- <property name="userId" value="12"></property> -->
 	</bean>	
 
 
