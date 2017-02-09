@@ -17,7 +17,7 @@
 
 	<!-- set the location where Spring can find the entities Annotation -->
 	<context:component-scan
-		base-package="com.shaowei.workflow.model, com.shaowei.workflow.dao, com.shaowei.workflow.service*" />
+		base-package="com.shaowei.workflow.model, com.shaowei.workflow.dao, com.shaowei.workflow.service, com.shaowei.*" />
 
 
 	<bean id="rootAdmin" name="rootAdmin" class="com.shaowei.workflow.model.User">
