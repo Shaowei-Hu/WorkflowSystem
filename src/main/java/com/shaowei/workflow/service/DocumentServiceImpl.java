@@ -137,4 +137,9 @@ public class DocumentServiceImpl implements DocumentService{
 		Document document = documentDao.get(documentId);
 		return historyService.getHistoriesByDocument(document);
 	}
+
+	@Override
+	public void deleteDocument(int id) {
+		documentDao.delete(id);		
+	}
 }

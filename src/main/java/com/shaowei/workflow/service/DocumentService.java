@@ -19,5 +19,6 @@ public interface DocumentService {
 	public List<Document> getAllDocumentByIntervenor(int userId);
 	public List<History> getHistoriesByDocumentId(int documentId);
 	public List<Document> getAllDocumentByResponsible(int userId);
+	public void deleteDocument(int id);
 
 }
