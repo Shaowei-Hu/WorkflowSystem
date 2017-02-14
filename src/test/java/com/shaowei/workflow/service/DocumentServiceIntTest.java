@@ -23,16 +23,18 @@ import com.shaowei.workflow.model.User;
 public class DocumentServiceIntTest {
 	
 	@Autowired
-	DocumentService documentService;
+	private DocumentService documentService;
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	@Autowired
-	Decision decision1, decision2, decision3, decision4, decision5, decision6, decision7, decision8;
+	private Decision decision1, decision2, decision3, decision4, decision5, decision6, decision7, decision8;
 	
 	static List<Decision> decisions;
 	
 	@Autowired
-	Document document4test;
+	private Document document4test;
+	private Integer generatedId;
+	
 	
 
 	public void init() {
@@ -59,11 +61,16 @@ public class DocumentServiceIntTest {
 	}
 	
 	@Test
-	public void documentLifeCircle() {
+	public void testDocumentLifeCircle() {
 		init();
-		
+		testCreateDocument();
+		testTraficInWorkflow();
+			
+	}
+	
+	public void testCreateDocument() {
 		User firstTrader = userService.getUserById(1);
-		Integer generatedId = documentService.addDocument(document4test, firstTrader);
+		generatedId = documentService.addDocument(document4test, firstTrader);
 		
 		List<Document> documents = documentService.getAllDocuments();
 		assertThat(documents).extracting("client", String.class).contains(document4test.getClient());
@@ -76,16 +83,24 @@ public class DocumentServiceIntTest {
 		assertThat(document.getClient()).isEqualTo(document4test.getClient());
 		assertThat(document.getAmount()).isEqualByComparingTo(new BigDecimal(10000.00));
 		assertThat(document.getResource()).isEqualByComparingTo(new BigDecimal(800.00));
+	}
 	
-
-		
+	public void testTraficInWorkflow() {
 		for(Decision d : decisions){
 			d.setDocumentId(generatedId);
 		}
 		
+		Document document = documentService.getFullDocument(generatedId);
+		
 		for(int i=0; i<decisions.size(); i++){
 			User responsiblePrecedent = document.getResponsible();
-			System.out.println(responsiblePrecedent.getUserName() + "         " + decisions.get(i).getComment());	
+			System.out.println(responsiblePrecedent.getUserName() + ":::" + decisions.get(i).getComment());	
+			
+			try {
+				Thread.sleep(800);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			
 			documentService.transferDocument(decisions.get(i));
 			
@@ -94,17 +109,8 @@ public class DocumentServiceIntTest {
 			
 			document = documentService.getFullDocument(generatedId);
 			User responsibleCurrent = document.getResponsible();
-			assertThat(documentService.getAllDocumentByResponsible(responsibleCurrent.getUserId())).extracting("client", String.class).contains(document4test.getClient());
-			
-			
+			assertThat(documentService.getAllDocumentByResponsible(responsibleCurrent.getUserId())).extracting("client", String.class).contains(document4test.getClient());	
 		}
-		
-//		documentService.deleteDocument(generatedId);
-//		
-//		documents = documentService.getAllDocuments();
-//		assertThat(documents).extracting("client", String.class).doesNotContain(document4test.getClient());
-		
-		
 	}
 
 }

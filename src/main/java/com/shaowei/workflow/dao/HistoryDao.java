@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +25,7 @@ public class HistoryDao extends BaseDao<History>{
 		session.beginTransaction();
 		Criteria criteria = session.createCriteria(History.class);
 		criteria.add(Restrictions.eq("document", document));
+		criteria.addOrder(Order.asc("date"));
 		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		@SuppressWarnings("unchecked")
 		List<History> histories = criteria.list();

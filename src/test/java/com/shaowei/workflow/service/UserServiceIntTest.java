@@ -37,6 +37,7 @@ public class UserServiceIntTest {
 	
 	@Autowired
 	private User newUser;
+	private Integer generatedId;
 	
 	public static final Condition<User> ALL = new Condition<User>() {
 		  public boolean matches(User value) {
@@ -74,13 +75,22 @@ public class UserServiceIntTest {
 	
 	@Test
 	public void testAddUpdateDeleteUser() {
-		Integer generatedId = userService.addUser(newUser);
+
+		testAddUser();
+		testUpdateUser();
+		testDeleteUser();	
+
+	}
+	
+	public void testAddUser(){
+		generatedId = userService.addUser(newUser);
 		List<User> users = userService.getAllUsers();
 		
 		assertThat(users).isNotEmpty().areExactly(10, ALL);
 		assertThat(users).extracting("userName", String.class).contains("NewUser4Test");
-		
-		
+	}
+	
+	public void testUpdateUser(){
 		User user = userService.getUserById(generatedId);
 		assertThat(user.getJob()).isEqualTo("UserTest");
 		
@@ -90,11 +100,11 @@ public class UserServiceIntTest {
 		user = null;
 		user = userService.getUserById(generatedId);
 		assertThat(user.getJob()).isEqualTo("NewJob");
-		
-		
-		
+	}
+	
+	public void testDeleteUser(){
 		userService.deleteUser(newUser.getUserId());
-		users = userService.getAllUsers();
+		List<User>users = userService.getAllUsers();
 		
 		assertThat(users).isNotEmpty().areExactly(9, ALL);
 		assertThat(users).extracting("userName", String.class).doesNotContain("NewUser4Test");
