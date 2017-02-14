@@ -19,89 +19,9 @@
 	<context:component-scan
 		base-package="com.shaowei.workflow.model, com.shaowei.workflow.dao, com.shaowei.workflow.service, com.shaowei.*" />
 
-
-	<!-- users for test user -->
-
-	<bean id="rootAdmin" name="rootAdmin" class="com.shaowei.workflow.model.User">
-		<property name="userName" value="RootAdmin"></property>
-		<property name="userPassword" value="initial"></property>
-		<property name="userId" value="10"></property>
-		<property name="job" value="RootAdmin"></property>
-	</bean>
-	
-	<bean id="notExisteUser" name="notExisteUser" class="com.shaowei.workflow.model.User">
-		<property name="userName" value="Julien"></property>
-		<property name="userPassword" value="initial"></property>
-	</bean>
-	
-	<bean id="faultPassword" name="faultPassword" class="com.shaowei.workflow.model.User">
-		<property name="userName" value="rootAdmin"></property>
-		<property name="userPassword" value="1235678"></property>
-	</bean>
-	
-	<bean id="newUser" name="newUser" class="com.shaowei.workflow.model.User">
-		<property name="userName" value="NewUser4Test"></property>
-		<property name="userPassword" value="initial"></property>
-		<property name="job" value="UserTest"></property>
-		<!-- <property name="userId" value="12"></property> -->
-	</bean>	
 	
 	
-
-
-	
-	<!-- decisions for test document -->
-	<bean id="decision1" name="decision1" class="com.shaowei.workflow.model.Decision">
-		<property name="decisionId" value="1"></property>
-		<property name="destinationId" value="3"></property>
-		<property name="comment" value="Send to responsible"></property>
-	</bean>	
-	<bean id="decision2" name="decision2" class="com.shaowei.workflow.model.Decision">
-		<property name="decisionId" value="8"></property>
-		<property name="destinationId" value="1"></property>
-		<property name="comment" value="Return to trader"></property>
-	</bean>	
-	<bean id="decision3" name="decision3" class="com.shaowei.workflow.model.Decision">
-		<property name="decisionId" value="1"></property>
-		<property name="destinationId" value="3"></property>
-		<property name="comment" value="Resend to responsible"></property>
-	</bean>	
-	<bean id="decision4" name="decision4" class="com.shaowei.workflow.model.Decision">
-		<property name="decisionId" value="2"></property>
-		<property name="destinationId" value="5"></property>
-		<property name="comment" value="Send to risk control officer"></property>
-	</bean>	
-	<bean id="decision5" name="decision5" class="com.shaowei.workflow.model.Decision">
-		<property name="decisionId" value="3"></property>
-		<property name="destinationId" value="8"></property>
-		<property name="comment" value="Send to backoffice"></property>
-	</bean>	
-	<bean id="decision6" name="decision6" class="com.shaowei.workflow.model.Decision">
-		<property name="decisionId" value="6"></property>
-		<property name="destinationId" value="4"></property>
-		<property name="comment" value="Return to another risk control officer"></property>
-	</bean>
-	<bean id="decision7" name="decision7" class="com.shaowei.workflow.model.Decision">
-		<property name="decisionId" value="3"></property>
-		<property name="destinationId" value="8"></property>
-		<property name="comment" value="Resend to backoffice"></property>
-	</bean>	
-	<bean id="decision8" name="decision8" class="com.shaowei.workflow.model.Decision">
-		<property name="decisionId" value="4"></property>
-		<property name="destinationId" value="2"></property>
-		<property name="comment" value="Debloger"></property>
-	</bean>	
-	
-	
-	
-	<!-- document for test -->
-	<bean id="document4test" name="document4test" class="com.shaowei.workflow.model.Document">
-		<property name="client" value="TestDocument"></property>
-		<property name="amountSt" value="10000"></property>
-		<property name="resourceSt" value="800"></property>
-	</bean>	
-
-
+	<import resource="classpath:spring-test-beans.xml" />
 
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"

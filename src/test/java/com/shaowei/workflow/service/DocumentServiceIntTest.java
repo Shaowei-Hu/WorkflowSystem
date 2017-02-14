@@ -97,7 +97,7 @@ public class DocumentServiceIntTest {
 			System.out.println(responsiblePrecedent.getUserName() + ":::" + decisions.get(i).getComment());	
 			
 			try {
-				Thread.sleep(800);
+				Thread.sleep(1023);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

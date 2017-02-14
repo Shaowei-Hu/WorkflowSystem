@@ -93,6 +93,54 @@ public class StepDecision implements Serializable{
 		this.nextStepNameId = nextStepNameId;
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((condition == null) ? 0 : condition.hashCode());
+		result = prime * result + ((decision == null) ? 0 : decision.hashCode());
+		result = prime * result + ((decisionId == null) ? 0 : decisionId.hashCode());
+		result = prime * result + id;
+		result = prime * result + nextStepId;
+		result = prime * result + ((nextStepNameId == null) ? 0 : nextStepNameId.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StepDecision other = (StepDecision) obj;
+		if (condition == null) {
+			if (other.condition != null)
+				return false;
+		} else if (!condition.equals(other.condition))
+			return false;
+		if (decision == null) {
+			if (other.decision != null)
+				return false;
+		} else if (!decision.equals(other.decision))
+			return false;
+		if (decisionId == null) {
+			if (other.decisionId != null)
+				return false;
+		} else if (!decisionId.equals(other.decisionId))
+			return false;
+		if (id != other.id)
+			return false;
+		if (nextStepId != other.nextStepId)
+			return false;
+		if (nextStepNameId == null) {
+			if (other.nextStepNameId != null)
+				return false;
+		} else if (!nextStepNameId.equals(other.nextStepNameId))
+			return false;
+		return true;
+	}
+	
 
 	
 	

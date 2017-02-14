@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.shaowei.workflow.dao.CommentDao;
 import com.shaowei.workflow.dao.DocumentDao;
+import com.shaowei.workflow.exception.WorkflowDeniedException;
 import com.shaowei.workflow.model.Comment;
 import com.shaowei.workflow.model.Decision;
 import com.shaowei.workflow.model.Document;
@@ -106,6 +107,10 @@ public class DocumentServiceImpl implements DocumentService{
 			
 			Document document = getFullDocument(documentId);
 			StepAdvanced currentStep = document.getCurrentStep();
+
+			if(!currentStep.getDecisions().contains(stepDecision))
+				throw new WorkflowDeniedException("Decision not match current workflow");
+			
 			User nextResponsible = userService.getUserById(nextResponsibleId);
 			User responsible = document.getResponsible();
 			
